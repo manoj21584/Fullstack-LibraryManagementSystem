@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>OneNow | Engineering</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="CheckTheTheme()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">LADMYAC</h1>
+            <div class="userinfo" hidden>
+                <b><span sec:authentication="name" id="userEmailIdSpan"> Name</span></b>&nbsp;
+                <i><span sec:authentication="principal.authorities">role</span></i>
+            </div>
+            <ul class="tabs">
+                <li class="tab "><a href="/departments">BACK </a></li>
+                <li class="tab is-active"><a class="logoutButton" href="/logout">LOGOUT </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Electrical Engineering</h2>
+
+                <a href="#" style="cursor: not-allowed! important;" onclick="return false;"><span>ENTER</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Chemical Engineering</h2>
+                <a href="#" style="cursor: not-allowed! important;" onclick="return false;"><span>ENTER</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Computer Science Engineering</h2>
+                <a href="/CSE"><span>ENTER</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Civil Engineering</h2>
+                <a href="#" style="cursor: not-allowed! important;" onclick="return false;"><span>ENTER</span></a>
+            </div>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Mechanical Engineering</h2>
+                <a href="#" style="cursor: not-allowed! important;" onclick="return false;"><span>ENTER</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Aerospace Engineering</h2>
+                <a href="#" style="cursor: not-allowed! important;" onclick="return false;"><span>ENTER</span></a>
+            </div>
+        </div>
+    </div>
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+    </script>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="changeTheme()"><i class='bx bx-moon'></i></a>
+    </div>
+    <script src="js/themeScript.js"></script>
+
+</body>
+
+</html>

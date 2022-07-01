@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OneNow | Downloads</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+
+</head>
+
+<body onload="getAllDocuments()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">LADMYAC</h1>
+            <ul class="tabs">
+                <li class="tab"><input class="universalInput" type="search" placeholder="Search" aria-label="Search" id="searchId"></li>
+                <li class="tab "><a herf="#" id="openUploadModel">Upload</a></li>
+                <li class="tab "><a href="/dashboard"> BACK </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/departments"><i class='bx bxs-building'></i> <span class="myListItemNames">Department</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/handleDownloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <input type="hidden" id="hiddenId" />
+        <div id="documentsTableId"></div>
+    </div>
+
+    <div class="myDeleteModel" id="myDeleteModel">
+        <ul class="modelList">
+            <li class="modelHeader">
+                <span class="closeD">&times;</span>
+                <h1>Deleting...</h1>
+            </li>
+            </li>
+            <li class="listItems">
+                <p>
+                    Are you really sure. You want to Continue..
+                </p>
+            </li>
+            <li class="modelFooter">
+                <a href="#" class="" onclick="deleteThisFile()">DELETE</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="myUploadModel" id="myUploadModel">
+        <ul class="modelList">
+            <li class="modelHeader">
+                <span class="closeU">&times;</span>
+                <h1>Upload Document</h1>
+            </li>
+            </li>
+            <li class="listItems">
+                <input type="text" id="nameId" placeholder="Document name" />
+                <input type="text" id="infoId" placeholder="Description" />
+                <input type="text" id="readLinkId" placeholder="Google drive link" />
+                <span>File's(<span style="color: red"> .pdf Only</span> ) visibility must be set to "Anyone with the link".
+                </span>
+
+            </li>
+            <li class="modelFooter">
+                <a href="#" class="" onclick="saveThisDocument()">UPLOAD</a>
+            </li>
+        </ul>
+    </div>
+
+    <script src="js/uploadModal.js"></script>
+    <script src="js/deleteModal.js"></script>
+
+    <script>
+        function getAllDocuments() {
+            jQuery
+                .ajax({
+                    type: 'GET',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    url: location.origin + "/allDocuments",
+                    success: function(data) {
+                            $('#documentsTableId')
+                                .html(
+                                    '<table class="table  table-bordered "  id="thisTable" ></table>');
+                            dataTable = $('#thisTable')
+                                .dataTable({
+                                    "data": data,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "scrollCollapse": true,
+                                    "paging": true,
+                                    'iDisplayLength': 10,
+                                    "dom": 'lrtip',
+                                    "aoColumns": [{
+                                        "mDataProp": "docId",
+                                        "title": "Id",
+                                        "width": "5%"
+                                    }, {
+                                        "mDataProp": "name",
+                                        "title": "Name",
+                                        "width": "15%"
+                                    }, {
+                                        "mDataProp": "info",
+                                        "title": "Description",
+                                        "width": "15%"
+                                    }, {
+                                        "mDataProp": "",
+                                        "title": "Read",
+                                        "width": "2%"
+                                    }, {
+                                        "mDataProp": "",
+                                        "title": "Download",
+                                        "width": "2%"
+                                    }, {
+                                        "mDataProp": "",
+                                        "title": "Remove",
+                                        "width": "2%"
+                                    }],
+                                    "columnDefs": [
+
+                                        {
+                                            "targets": -1,
+                                            "sClass": "editTblAction",
+                                            "data": null,
+                                            "title": "ReSendOTP",
+                                            "bSortable": false,
+                                            "sWidth": "20px",
+                                            //"defaultContent": "<a class='reSendOtp' title='Delete Record' href=\"\" onclick=\deleteData();return false;\"><span class='glyphicon glyphicon-trash'></span></a>"
+                                            render: function(data,
+                                                type, row) {
+                                                return '<a class="redButton" href="#" id="openDeleteModel" onclick="deleteData(' +
+                                                    row.docId +
+                                                    ')">DELETE</a>';
+                                            }
+                                        }, {
+                                            "targets": -2,
+                                            "sClass": "editTblAction",
+                                            "data": null,
+                                            "title": "ReSendOTP",
+                                            "bSortable": false,
+                                            "sWidth": "20px",
+                                            //"defaultContent": "<a class='reSendOtp' title='Delete Record' href=\"\" onclick=\deleteData();return false;\"><span class='glyphicon glyphicon-trash'></span></a>"
+                                            render: function(data,
+                                                type, row) {
+                                                return '<a class="greenButton" href="#" onclick="downloadFunction(' +
+                                                    row.docId +
+                                                    ')">DOWNLOAD</a>';
+                                            }
+                                        }, {
+                                            "targets": -3,
+                                            "sClass": "editTblAction",
+                                            "data": null,
+                                            "title": "ReSendOTP",
+                                            "bSortable": false,
+                                            "sWidth": "20px",
+                                            //"defaultContent": "<a class='reSendOtp' title='Delete Record' href=\"\" onclick=\deleteData();return false;\"><span class='glyphicon glyphicon-trash'></span></a>"
+                                            render: function(data,
+                                                type, row) {
+                                                return '<a class="blueButton" href="#"  onclick="readFunction(' +
+                                                    row.docId +
+                                                    ')">READ</a>';
+                                            }
+                                        }
+                                    ]
+                                });
+
+                        }
+                        //)
+                });
+            $("#searchId").keyup(function() {
+                dataTable.fnFilter(this.value);
+                $("#thisTable_filter").hide();
+            });
+
+        }
+
+        function deleteData(docId) {
+            var modal = document.getElementById("myDeleteModel");
+            modal.style.display = "block";
+            $("#hiddenId").val(docId);
+        }
+
+        function deleteThisFile() {
+            jQuery.ajax({
+                type: 'DELETE',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/document/" + $("#hiddenId").val(),
+                success: function(data) {
+                    debugger;
+                    window.location.assign(location.origin + "/handleDownloads")
+                },
+                error: function(data) {
+                    window.location.assign(location.origin + "/handleDownloads");
+                }
+            });
+        }
+
+        function downloadFunction(docId) {
+            $("#hiddenId").val(docId);
+            jQuery.ajax({
+                type: 'GET',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/document/" + "Download/" + $("#hiddenId").val(),
+                success: function(data) {
+                    window.location.assign(data.downloadLink);
+                }
+            });
+        }
+
+        function readFunction(docId) {
+            $("#hiddenId").val(docId);
+            jQuery.ajax({
+                type: 'GET',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/document/" + "Read/" + $("#hiddenId").val(),
+                success: function(data) {
+                    window.location.assign(data.readLink);
+                }
+            });
+
+        }
+
+        function saveThisDocument() {
+            if (validateInputInfo()) {
+                var dLink = CreateDirectDownloadLink($('#readLinkId').val());
+                var inputPayload = {
+                    "name": $("#nameId").val(),
+                    "info": $("#infoId").val(),
+                    "readLink": $("#readLinkId").val(),
+                    "downloadLink": dLink,
+                }
+                var inputPayloadString = JSON.stringify(inputPayload);
+                jQuery.ajax({
+                    type: 'POST',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    url: location.origin + "/saveDocument",
+                    data: inputPayloadString,
+                    success: function(data) {
+                        clearFormData();
+                        alertify.alert('', 'Document saved sucessfully.', function() {});
+                        window.location.assign(location.origin + "/handleDownloads");
+                    },
+                    error: function(data) {
+                        alert("Error while uploading");
+                        window.location.assign(location.origin + "/handleDownloads");
+                    }
+                });
+            }
+        }
+
+        function openModel() {
+            $("#saveModalId").modal().show();
+        }
+
+        function reverseString(str) {
+            var newString = "";
+            for (var i = str.length - 1; i >= 0; i--) {
+                newString += str[i];
+            }
+            return newString;
+        }
+
+        function CreateDirectDownloadLink(str) {
+            if (str.includes("drivesdk")) {
+                str = str.substring(32);
+                var reverseStr = reverseString(str);
+                reverseStr = reverseStr.substring(18);
+                str = reverseString(reverseStr);
+                str = "https://drive.google.com/uc?export=download&id=" + str;
+
+            } else {
+                str = str.substring(32);
+                var reverseStr = reverseString(str);
+                reverseStr = reverseStr.substring(17);
+                str = reverseString(reverseStr);
+                str = "https://drive.google.com/uc?export=download&id=" + str;
+            }
+            return str;
+
+        }
+
+        function validateInputInfo() {
+            var isValidated = true;
+            if ($("#nameId").val() == "") {
+                $("#nameSpanId").show();
+                isValidated = false;
+            } else {
+                $("#nameSpanId").hide();
+                isValidated = true;
+            }
+            if ($("#infoId").val() == "") {
+                $("#authorSpanId").show();
+                isValidated = false;
+            } else {
+                $("#authorSpanId").hide();
+                isValidated = true;
+            }
+            if ($("#readLinkId").val() == "") {
+                $("#downloadSpanId").show();
+                isValidated = false;
+            } else {
+                $("#downloadSpanId").hide();
+                isValidated = true;
+            }
+            return isValidated;
+        }
+
+        function clearFormData() {
+            $("#nameId").val("");
+            $('#infoId').val("");
+            $("#readLinkId").val("");
+        }
+
+        function hideAllErrorMessage() {
+            $("#nameSpanId").hide();
+            $("#authorSpanId").hide();
+            $("#downloadSpanId").hide();
+        }
+    </script>
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+        /*__________________________________________________theme changer__________________________________________*/
+        var theme = document.getElementById("stylesheet");
+        var isChanged = false;
+
+        function themeFunction() {
+            if (isChanged) {
+                theme.href = "css/brightTheme.css";
+                isChanged = false;
+            } else {
+                theme.href = "css/darkTheme.css";
+                isChanged = true;
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

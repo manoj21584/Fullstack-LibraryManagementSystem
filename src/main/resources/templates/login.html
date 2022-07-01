@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OneNow | Sign in</title>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css" />
+</head>
+
+<body>
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">LADMYAC</h1>
+            <ul class="tabs">
+                <li class="tab "><a href="/downloads">DOWNLOADS </a></li>
+                <li class="tab "><a href="/feedback">FEEDBACK </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="heading">
+            <p>Save Paper <i class='bx bxs-tree'></i> Go Electronic!</p>
+            <br>
+            <hr>
+        </div>
+        <div class="myBigCard">
+            <h1>Sign in</h1>
+            <br/>
+            <div th:if="${param.error}" style="text-align: center;color:red">
+                Invalid username or password.
+            </div>
+            <div th:if="${param.logout}" style="text-align: center;color:rgb(0, 202, 0)">
+                You have been logged out.
+            </div>
+            <form class="form-signin" method="post" action="/login">
+                <input type="text" id="username" name="username" class="myInputFields" placeholder="Email" required="" autofocus="">
+                <input type="password" id="password" name="password" class="myInputFields" placeholder="Password" required="">
+                <button class="mySubmitButton" type="submit">LOGIN</button>
+                <br/>
+            </form>
+
+            <p style="text-align: center;"><a href="/register">Create account</a> or <a href="/forgot">Forgot password ?</a></p>
+        </div>
+        <div class="footer">
+            <br>
+            <h1>
+                <a class="footerIcon" href="https://twitter.com/rohit821128"><i class='bx bxl-twitter'></i></a>
+                <a class="footerIcon" href="mailto: onenow.inc@gmail.com"><i class='bx bxl-gmail'></i></a>
+                <a class="footerIcon" href="https://github.com/hellFlames"><i class='bx bxl-github'></i></a>
+                <a class="footerIcon" href="https://t.me/onenowproject"><i class='bx bxl-telegram'></i></a>
+                <a class="footerIcon" href="https://www.linkedin.com/in/rohit-dangi-8b0a43219/"><i class='bx bxl-linkedin'></i></a>
+            </h1>
+            <br>
+            <p><span>© Copyright 2022. All Rights Reserved.</span></p>
+            <br>
+            <p>Disclaimer : The OneNow Library Website contains content from a variety of sources and should be used for educational purposes only. You may choose to provide your personal information. We will not share this information or any other personal
+                information about Library users with outside parties.</p>
+            <br>
+            <br>
+        </div>
+    </div>
+
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

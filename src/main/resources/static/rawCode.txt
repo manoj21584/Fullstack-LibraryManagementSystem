@@ -1,0 +1,1542 @@
+dashboard.html
+--------------------------------------------------------------------------------------------------------
+<div class="myAdminModel" id="myAdminModel">
+        <ul class="modelList">
+            <li class="modelHeader">
+                <span class="closeA">&times;</span>
+                <h1>Hello! admin...</h1>
+            </li>
+            </li>
+            <li class="listItems">
+                <input type="password" placeholder="Admin password" id="adminPasswordId" />
+            </li>
+            <li class="modelFooter">
+                <a href="#" class="" onclick="VrifyAdmin()">VARIFY</a>
+            </li>
+        </ul>
+    </div>
+    <script src="js/adminModal.js"></script>
+    <script>
+        function validateInputInfo() {
+            var isValidated = true;
+            if ($("#adminNameId").val() == "") {
+                $("#adminNameSpanId").show();
+                isValidated = false;
+            } else {
+                $("#adminNameSpanId").hide();
+                isValidated = true;
+            }
+            if ($("#adminPasswordId").val() == "") {
+                $("#adminPasswordSpanId").show();
+                isValidated = false;
+            } else {
+                $("#adminPasswordSpanId").hide();
+                isValidated = true;
+            }
+            return isValidated;
+        }
+
+        function clearFormData() {
+            $("#adminNameId").val("");
+            $('#adminPasswordId').val("");
+        }
+
+        function hideAllErrorMessage() {
+            $("#adminNameSpanId").hide();
+            $("#adminPasswordSpanId").hide();
+        }
+
+        function VrifyAdmin() {
+            if (validateInputInfo()) {
+                var inputPayload = {
+                    "password": $("#adminPasswordId").val(),
+                }
+                var inputPayloadString = JSON.stringify(inputPayload);
+                jQuery.ajax({
+                    type: 'POST',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    url: location.origin + "/adminLogin",
+                    data: inputPayloadString,
+                    success: function(data) {
+                        clearFormData();
+                        window.location.assign("/dashboardforAdmin");
+                    },
+                    error: function(data) {
+                        clearFormData();
+                        alert("Access Denied.");
+                        window.location.assign("/dashboard");
+                    }
+                });
+            }
+        }
+    </script>
+
+--------------------------------------------------------------------------------------------------------
+login.html
+--------------------------------------------------------------------------------------------------------
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OneNow | Sign in</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: azure;
+        }
+        
+        #myWallpaper {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 100%;
+            width: 100%;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            z-index: 0;
+        }
+        
+        .myTopbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 55px;
+            backdrop-filter: blur(1px);
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            z-index: 99;
+        }
+        
+        .myTopbar nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        .myTopbar nav #btn {
+            top: 22px;
+            color: black;
+            font-size: 32px;
+            cursor: pointer;
+        }
+        
+        .myTopbar nav h1 {
+            font-size: 28px;
+            font-weight: 600px;
+            margin-left: 0px;
+            color: crimson;
+        }
+        
+        .myTopbar nav .tabs {
+            list-style-type: none;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .myTopbar nav .tabs .tab {
+            display: block;
+            padding-left: 10px;
+            margin-top: 2px;
+        }
+        
+        .myTopbar nav .tabs .tab a {
+            color: black;
+            display: block;
+            padding: 5px 13px;
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            transition: all .5s ease;
+            cursor: pointer;
+            display: block;
+        }
+        
+        .myTopbar nav .tabs .tab:hover a {
+            background-color: black;
+            color: azure;
+        }
+        
+        .myTopbar nav .tabs .tab.is-active a {
+            background-color: black;
+            color: azure;
+            font-weight: 0;
+        }
+        /*//////////////////////////////////////////////////////////////////*/
+        
+        .mySidebar {
+            position: fixed;
+            left: -78px;
+            top: 55px;
+            height: 260px;
+            border-radius: 5px;
+            width: 78px;
+            backdrop-filter: blur(1px);
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            z-index: 99;
+            transition: all 0.7s ease;
+        }
+        
+        .mySidebar li {
+            position: relative;
+            margin: 8px 0;
+            list-style: none;
+        }
+        
+        .mySidebar li i {
+            height: 50px;
+            line-height: 50px;
+            font-size: 25px;
+            border-radius: 5px;
+            color: black;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .mySidebar li a {
+            display: flex;
+            width: 100%;
+            border-radius: 5px;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            background-color: azure;
+            color: black;
+            border: 1px solid black;
+        }
+        
+        .mySidebar li a .myListItemNames {
+            color: black;
+            font-size: 15px;
+            font-weight: 400;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+        }
+        
+        .mySidebar.open {
+            width: 260px;
+        }
+        
+        .mySidebar.open .myList {
+            margin-top: 10px;
+            margin-left: 78px;
+            height: 500px;
+        }
+        
+        .mySidebar li a:hover {
+            background-color: black;
+        }
+        
+        .mySidebar.open li a .myListItemNames {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .mySidebar li a:hover .myListItemNames,
+        .mySidebar li a:hover i {
+            color: azure;
+            transition: all 0.7s ease;
+        }
+        
+        .userDetails {
+            text-align: center;
+            color: black;
+            font-size: 25px;
+        }
+        
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+            overflow: auto;
+            margin-top: 50px;
+            margin-left: 10px;
+        }
+        
+        .container .footer {
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            margin-top: 10px;
+            height: 350px;
+            background-color: cornsilk;
+            text-align: center;
+            color: black;
+            z-index: 99;
+        }
+        
+        .container .footer .footerIcon {
+            color: black;
+            text-decoration: none;
+        }
+        
+        .container .footer .footerIcon:hover {
+            color: rgb(0, 202, 0);
+            transition: all 0.4s ease;
+        }
+        
+        .container .myQuote {
+            width: 1250px;
+            background-color: azure;
+            color: black;
+            border-radius: 10px;
+            font-size: 15px;
+            margin-left: 23%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-align: center;
+        }
+        
+        .container .heading {
+            width: 1250px;
+            margin: 10px;
+            padding: 20px 20px;
+            background-color: azure;
+            color: black;
+            border-radius: 10px;
+            font-size: 25px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            float: left;
+            text-align: center;
+        }
+        
+        .container .heading i {
+            color: rgb(0, 201, 0);
+        }
+        
+        .container .heading hr {
+            border-top: 1px solid black;
+        }
+        /* ///////////////////////Small Cards/////////////////////*/
+        
+        .container .mySmallCard {
+            width: 250px;
+            margin: 10px;
+            padding: 20px 20px;
+            background-color: cornsilk;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+            border-radius: 5px;
+            float: left;
+        }
+        
+        .container .mySmallCard .imageBox {
+            position: relative;
+            text-align: center;
+            margin-top: -5px;
+        }
+        
+        .container .mySmallCard .imageBox img {
+            max-width: 200px;
+            border-radius: 10px;
+        }
+        
+        .container .mySmallCard .bookIcon i {
+            font-size: 50px;
+            margin-left: 40%;
+            color: black;
+        }
+        
+        .container .mySmallCard .contentBox {
+            position: relative;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .container .mySmallCard .contentBox h2 {
+            font-weight: 700;
+            font-size: 1.4em;
+            letter-spacing: 1px;
+            color: black;
+        }
+        
+        .container .mySmallCard .contentBox p {
+            color: black;
+        }
+        
+        .container .mySmallCard .contentBox a {
+            color: black;
+            border: 1px solid black;
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .container .mySmallCard .contentBox a:hover {
+            background-color: black;
+            color: cornsilk;
+        }
+        /* /////////////////////// Big Cards/////////////////////*/
+        
+        .container .myBigCard {
+            width: 350px;
+            padding: 20px 20px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(1px);
+            background-color: cornsilk;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+            border-radius: 5px;
+            float: left;
+        }
+        
+        .container .myBigCard h1 {
+            text-align: center;
+            text-decoration: none;
+            font-size: 3ex;
+            color: black;
+        }
+        
+        .container .myBigCard p {
+            text-align: center;
+            text-decoration: none;
+            font-size: 2ex;
+            color: black;
+        }
+        
+        .container .myBigCard h1 i {
+            color: red;
+        }
+        
+        .container .myBigCard ul {
+            margin-top: 20px;
+            margin-left: 15%;
+            list-style-type: none;
+        }
+        
+        .container .myBigCard ul li {
+            margin-top: 10px;
+        }
+        
+        .container .myBigCard .myInputFields {
+            width: 100%;
+            padding: 5px 10px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+            color: black;
+            background-color: azure;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+        }
+        
+        .container .myBigCard .mySubmitButton {
+            width: 100%;
+            padding: 5px;
+            text-align: center;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+            font-size: 15px;
+            border-radius: 5px;
+            color: black;
+            border: 1px solid black;
+            background-color: cornsilk;
+            text-decoration: none;
+        }
+        
+        .container .myBigCard .mySubmitButton:hover {
+            background-color: black;
+            color: azure;
+        }
+        /*//////////////////////////////////////Admin Modal ???????????????????????????*/
+        
+        .myAdminModel {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 99;
+            top: 70px;
+            width: 300px;
+            /* Full width */
+            height: 170px;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: azure;
+            /* Black w/ opacity */
+            border-radius: 10px;
+            box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.75);
+        }
+        
+        .myAdminModel .modelList {
+            position: relative;
+            margin: 20px 20px;
+            list-style: none;
+            justify-content: space-around;
+        }
+        
+        .myAdminModel .modelList .modelHeader h1 {
+            font-size: 25px;
+            color: crimson;
+        }
+        
+        .myAdminModel .modelList .modelHeader .closeA {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .myAdminModel .modelList .modelHeader .closeA:hover,
+        .myAdminModel .modelList .modelHeader .closeA:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .myAdminModel .modelList .modelFooter a {
+            color: black;
+            border: 1px solid BLACK;
+            padding: 5px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            float: right;
+        }
+        
+        .myAdminModel .modelList .modelFooter a:hover {
+            background-color: black;
+            color: azure;
+        }
+        
+        .myAdminModel .modelList .listItems input {
+            width: 100%;
+            padding: 5px 10px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+            color: black;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+        }
+        /*//////////////////////////////////////Delete Modal ???????????????????????????*/
+        
+        .myDeleteModel {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 99;
+            top: 70px;
+            width: 300px;
+            /* Full width */
+            height: 180px;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: azure;
+            /* Black w/ opacity */
+            border-radius: 10px;
+            box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.75);
+        }
+        
+        .myDeleteModel .modelList {
+            position: relative;
+            margin: 20px 20px;
+            list-style: none;
+            justify-content: space-around;
+        }
+        
+        .myDeleteModel .modelList .modelHeader h1 {
+            font-size: 25px;
+            color: crimson;
+        }
+        
+        .myDeleteModel .modelList .modelHeader .closeD {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .myDeleteModel .modelList .modelHeader .closeD:hover,
+        .myDeleteModel .modelList .modelHeader .closeD:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .myDeleteModel .modelList .modelFooter a {
+            color: black;
+            border: 1px solid BLACK;
+            padding: 5px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            float: right;
+        }
+        
+        .myDeleteModel .modelList .modelFooter a:hover {
+            background-color: red;
+            color: black;
+            border: 1px solid red;
+        }
+        
+        .myDeleteModel .modelList .listItems input {
+            width: 100%;
+            padding: 5px 10px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+            color: black;
+            background-color: azure;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+        }
+        /*//////////////////////////////////////Upload Modal ???????????????????????????*/
+        
+        .myUploadModel {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 99;
+            top: 70px;
+            width: 350px;
+            /* Full width */
+            height: 300px;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: azure;
+            /* Black w/ opacity */
+            border-radius: 10px;
+            box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.75);
+        }
+        
+        .myUploadModel .modelList {
+            position: relative;
+            margin: 20px 20px;
+            list-style: none;
+            justify-content: space-around;
+        }
+        
+        .myUploadModel .modelList span {
+            color: black;
+        }
+        
+        .myUploadModel .modelList .modelHeader h1 {
+            font-size: 25px;
+            color: crimson;
+        }
+        
+        .myUploadModel .modelList .modelHeader .closeU {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .myUploadModel .modelList .modelHeader .closeU:hover,
+        .myUploadModel .modelList .modelHeader .closeU:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .myUploadModel .modelList .modelFooter a {
+            color: black;
+            border: 1px solid BLACK;
+            padding: 5px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            float: right;
+        }
+        
+        .myUploadModel .modelList .modelFooter a:hover {
+            background-color: black;
+            color: azure;
+        }
+        
+        .myUploadModel .modelList .listItems input {
+            width: 100%;
+            padding: 5px 10px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+            color: black;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+        }
+        /*//////////////////////////////////////Edit Modal ???????????????????????????*/
+        
+        .myEditModel {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 99;
+            top: 70px;
+            width: 350px;
+            /* Full width */
+            height: 260px;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: azure;
+            /* Black w/ opacity */
+            border-radius: 10px;
+            box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.75);
+        }
+        
+        .myEditModel .modelList {
+            position: relative;
+            margin: 20px 20px;
+            list-style: none;
+            justify-content: space-around;
+        }
+        
+        .myEditModel .modelList span {
+            color: black;
+        }
+        
+        .myEditModel .modelList .modelHeader h1 {
+            font-size: 25px;
+            color: crimson;
+        }
+        
+        .myEditModel .modelList .modelHeader .closeE {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .myEditModel .modelList .modelHeader .closeU:hover,
+        .myEditModel .modelList .modelHeader .closeU:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .myEditModel .modelList .modelFooter a {
+            color: black;
+            border: 1px solid BLACK;
+            padding: 5px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            float: right;
+        }
+        
+        .myEditModel .modelList .modelFooter a:hover {
+            background-color: black;
+            color: azure;
+        }
+        
+        .myEditModel .modelList .listItems input {
+            width: 100%;
+            padding: 5px 10px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+            color: black;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+        }
+        /*//////////////////////////////////////Add Role Modal ???????????????????????????*/
+        
+        .myRoleModel {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 99;
+            top: 70px;
+            width: 350px;
+            /* Full width */
+            height: 170px;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: azure;
+            /* Black w/ opacity */
+            border-radius: 10px;
+            box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.75);
+        }
+        
+        .myRoleModel .modelList {
+            position: relative;
+            margin: 20px 20px;
+            list-style: none;
+            justify-content: space-around;
+        }
+        
+        .myRoleModel .modelList span {
+            color: black;
+        }
+        
+        .myRoleModel .modelList .modelHeader h1 {
+            font-size: 25px;
+            color: crimson;
+        }
+        
+        .myRoleModel .modelList .modelHeader .closeRM {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .myRoleModel .modelList .modelHeader .closeRM:hover,
+        .myRoleModel .modelList .modelHeader .closeRM:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .myRoleModel .modelList .modelFooter a {
+            color: black;
+            border: 1px solid BLACK;
+            padding: 5px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            float: right;
+        }
+        
+        .myRoleModel .modelList .modelFooter a:hover {
+            background-color: black;
+            color: azure;
+        }
+        
+        .myRoleModel .modelList .listItems input {
+            width: 100%;
+            padding: 5px 10px;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            margin: auto;
+            margin-top: 10px;
+            color: black;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+        }
+        
+        .themeChanger {
+            font-family: Verdana, Geneva, sans-serif;
+            z-index: 99;
+        }
+        
+        .themeChanger .float {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            bottom: 20px;
+            right: 20px;
+            background-color: black;
+            color: azure;
+            border-radius: 50px;
+            text-align: center;
+        }
+        
+        .themeChanger .float:hover {
+            color: black;
+            background-color: azure;
+        }
+        
+        .themeChanger .float .bx-moon {
+            margin-top: 6px;
+            font-size: 40px;
+        }
+        
+        .universalButton {
+            color: black;
+            border: 1px solid BLACK;
+            padding: 5px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            float: right;
+        }
+        
+        .universalButton:hover {
+            background-color: black;
+            color: azure;
+        }
+        
+        .universalInput {
+            color: black;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+            display: block;
+            padding: 8px 13px;
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            transition: all .5s ease;
+            cursor: pointer;
+            display: block;
+        }
+        
+        .universalSelect {
+            color: hsl(0, 0%, 0%);
+            width: 100%;
+            background-color: white;
+            border: none;
+            border-radius: 5px;
+            caret-color: black;
+            display: block;
+            padding: 8px 13px;
+            text-decoration: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            transition: all .5s ease;
+            cursor: pointer;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="myTopbar">
+
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">OneNow</h1>
+            <ul class="tabs">
+                <li class="tab "><a href="/register">SIGN UP </a></li>
+                <li class="tab "><a href="/feedback">FEEDBACK </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="heading">
+            <p>Save Paper <i class='bx bxs-tree'></i> Go Electronic!</p>
+            <br>
+            <hr>
+        </div>
+        <div class="myBigCard">
+            <h1>Sign in</h1>
+            <br/>
+            <form class="form-signin" method="post" action="/login">
+
+                <span th:text="${message}"></span>
+
+                <input type="text" id="username" name="username" class="myInputFields" placeholder="Username" required="" autofocus="">
+
+                <input type="password" id="password" name="password" class="myInputFields" placeholder="Password" required="">
+
+                <span class="has-error" th:text="${error}"></span>
+
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <button class="mySubmitButton" type="submit">LOGIN</button>
+                <br/>
+                <p><a href="/FP1" style="color:red;">Forgot password ?</a> </form>
+        </div>
+        <div class="footer">
+            <br>
+            <h1>
+                <a class="footerIcon" href="https://twitter.com/rohit821128"><i class='bx bxl-twitter'></i></a>
+                <a class="footerIcon" href="mailto: onenow.inc@gmail.com"><i class='bx bxl-gmail'></i></a>
+                <a class="footerIcon" href="https://github.com/hellFlames"><i class='bx bxl-github'></i></a>
+                <a class="footerIcon" href="https://t.me/onenowproject"><i class='bx bxl-telegram'></i></a>
+                <a class="footerIcon" href="https://www.linkedin.com/in/rohit-dangi-8b0a43219/"><i class='bx bxl-linkedin'></i></a>
+            </h1>
+            <br>
+            <p><span>© Copyright 2022. All Rights Reserved.</span></p>
+            <br>
+            <p>Disclaimer : The OneNow Library Website contains content from a variety of sources and should be used for educational purposes only. You may choose to provide your personal information. We will not share this information or any other personal
+                information about Library users with outside parties.</p>
+            <br>
+            <br>
+        </div>
+    </div>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("mypassword");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+<div class="footer">
+            <br>
+            <h1>
+                <a class="footerIcon" href="https://twitter.com/rohit821128"><i class='bx bxl-twitter'></i></a>
+                <a class="footerIcon" href="mailto: onenow.inc@gmail.com"><i class='bx bxl-gmail'></i></a>
+                <a class="footerIcon" href="https://github.com/hellFlames"><i class='bx bxl-github'></i></a>
+                <a class="footerIcon" href="https://t.me/onenowproject"><i class='bx bxl-telegram'></i></a>
+                <a class="footerIcon" href="https://www.linkedin.com/in/rohit-dangi-8b0a43219/"><i class='bx bxl-linkedin'></i></a>
+            </h1>
+            <br>
+            <p><span>© Copyright 2022. All Rights Reserved.</span></p>
+            <br>
+            <p>Tip : This is the page where you can ask any question, books, notes, assignments etc. If you are feeling good by visiting this website, then give me appreciation in your responce. Also if you find any glitch, please give a feedback to me.
+                Thanks...
+            </p>
+            <br>
+            <br>
+        </div>
+
+
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d111933.78683539621!2d76.83098060106002!3d28.751481825485993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1642561945550!5m2!1sen!2sin " width="800 " height="460
+                " style="border:0; "
+            allowfullscreen=" " loading="lazy "></iframe>-->
+
+
+
+
+this is Role.java Entity
+
+package org.application.Entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer roleId;
+    private String roleName;
+	public Integer getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	
+}
+____________________________________________________________________________________________
+inside user Entity
+
+@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+	private Set<Role> roles = new HashSet<>();
+
+    public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+____________________________________________________________________________________________
+this is role repository : RoleRepository.java
+
+package org.application.Repository;
+
+import org.application.Entity.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+@Repository
+public interface RoleRepository extends JpaRepository<Role,Integer> {
+    
+}
+
+____________________________________________________________________________________________
+this is code inside UserSecurity.java
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<Role> role = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role R : role) {
+            authorities.add(new SimpleGrantedAuthority(R.getRoleName()));
+        }
+        return authorities;
+    }
+
+
+____________________________________________________________________________________________
+
+Role.java Entity
+
+package org.application.Entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer roleId;
+    private String roleName;
+	public Integer getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	
+}
+
+
+____________________________________________________________________________________________
+
+roleTable.html
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>OneNow | Users</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="getAllRolesInfo()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">OneNow</h1>
+            <ul class="tabs">
+                <li class="tab"><input class="universalInput" type="search" placeholder="Search" aria-label="Search" id="searchId"></li>
+                <li class="tab "><a href="/dashboardforAdmin"> BACK </a></li>
+                <li class="tab "><a href="#" onclick="addRoleFunction()"> ADD </a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/departments"><i class='bx bxs-building'></i> <span class="myListItemNames">Department</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <input type="hidden" id="hiddenId" />
+    <div id="roleTableId" style="margin-top:0;"></div>
+
+    <div class="myDeleteModel" id="myDeleteModel">
+        <ul class="modelList">
+            <li class="modelHeader">
+                <span class="closeD">&times;</span>
+                <h1>Deleting...</h1>
+            </li>
+            </li>
+            <li class="listItems">
+                <p>
+                    Are you really sure. You want to continue..
+                </p>
+            </li>
+            <li class="modelFooter">
+                <a href="#" class="" onclick="DeleteRole()">DELETE</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="myEditModel" id="myEditModel">
+        <ul class="modelList">
+            <li class="modelHeader">
+                <span class="closeE">&times;</span>
+                <h1>Editing...</h1>
+            </li>
+            </li>
+            <li class="listItems">
+                <br>
+                <br>
+                <label>Enter new name for role</label>
+                <input type="text" class="universalInput" id="nameId">
+
+            </li>
+            <li class="modelFooter">
+                <a href="#" class="" onclick="UpdateRole()">UPLOAD</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="myRoleModel" id="myRoleModel">
+        <ul class="modelList">
+            <li class="modelHeader">
+                <span class="closeRM">&times;</span>
+                <h1>Add New Role</h1>
+            </li>
+            </li>
+            <li class="listItems">
+                <input type="text" class="universalInput" id="roleNameId" placeholder="Name of role">
+            </li>
+            <li class="modelFooter">
+                <a href="#" class="" onclick="AddRole()">SAVE</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+        /*__________________________________________________theme changer__________________________________________*/
+        var theme = document.getElementById("stylesheet");
+        var isChanged = false;
+
+        function themeFunction() {
+            if (isChanged) {
+                theme.href = "css/brightTheme.css";
+                isChanged = false;
+            } else {
+                theme.href = "css/darkTheme.css";
+                isChanged = true;
+            }
+        }
+    </script>
+    <script src="js/editModal.js"></script>
+    <script src="js/deleteModal.js"></script>
+    <script src="js/addRoleModal.js"></script>
+
+    <script>
+        function getAllRolesInfo() {
+            jQuery
+                .ajax({
+                    type: 'GET',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    url: location.origin + "/allRoles",
+                    success: function(data) {
+                            $('#roleTableId')
+                                .html(
+                                    '<table class="table  table-bordered "  id="allPat" ></table>');
+                            dataTable = $('#allPat')
+                                .dataTable({
+                                    "data": data,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "scrollCollapse": true,
+                                    "paging": true,
+                                    'iDisplayLength': 5,
+                                    "dom": 'lrtip',
+                                    "aoColumns": [{
+                                            "mDataProp": "roleId",
+                                            "title": "ID",
+                                            "width": "50%"
+                                        }, {
+                                            "mDataProp": "roleName",
+                                            "title": "Name",
+                                            "width": "50%"
+                                        }, {
+                                            "mDataProp": "",
+                                            "title": "Remove",
+                                            "width": "2%"
+                                        },
+
+                                        {
+                                            "mDataProp": "",
+                                            "title": "Update",
+                                            "sWidth": "2px"
+                                        }
+                                    ],
+                                    "columnDefs": [{
+                                        "sClass": "editTblAction",
+                                        "sWidth": "20px",
+                                        "targets": -1,
+                                        "data": null,
+                                        "title": "Edit",
+                                        "bSortable": false,
+                                        /* "defaultContent" : "<button type='button' class='btn btn-primary' onclick='editEmployee(1)'><i>edit</i></button>" */
+                                        render: function(data,
+                                            type, row) {
+                                            return '<a class="universalButton" href="#" onclick="addOrEditData(' +
+                                                row.roleId +
+                                                ')">Edit</a>';
+                                        }
+
+                                    }, {
+                                        "targets": -2,
+                                        "sClass": "editTblAction",
+                                        "data": null,
+                                        "title": "ReSendOTP",
+                                        "bSortable": false,
+                                        "sWidth": "20px",
+                                        //"defaultContent": "<a class='reSendOtp' title='Delete Record' href=\"\" onclick=\deleteData();return false;\"><span class='glyphicon glyphicon-trash'></span></a>"
+                                        render: function(data,
+                                            type, row) {
+                                            return '<a class="universalButton" href="#" onclick="deleteData(' +
+                                                row.roleId +
+                                                ')">Delete</a>';
+                                        }
+                                    }]
+                                });
+
+                        }
+                        //)
+                });
+            $("#searchId").keyup(function() {
+                dataTable.fnFilter(this.value);
+                $("#allPat_filter").hide();
+            });
+
+        }
+
+        function deleteData(roleId) {
+            var modal = document.getElementById("myDeleteModel");
+            modal.style.display = "block";
+            $("#hiddenId").val(roleId);
+        }
+
+        function editData(roleId) {
+            var modal = document.getElementById("myEditModel");
+            modal.style.display = "block";
+            $("#hiddenId").val(roleId);
+        }
+
+        function DeleteRole() {
+            jQuery.ajax({
+                type: 'DELETE',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/role/" + $("#hiddenId").val(),
+                success: function(data) {
+                    debugger;
+                    window.location.assign(location.origin + "/roleTable")
+                },
+                error: function(data) {
+                    window.location.assign(location.origin + "/roleTable");
+                }
+            });
+        }
+
+        function addOrEditData(roleId) {
+            var modal = document.getElementById("myEditModel");
+            modal.style.display = "block";
+            $("#hiddenId").val(roleId);
+
+            jQuery.ajax({
+                type: 'GET',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/role/" + $("#hiddenId").val(),
+                success: function(data) {
+                    $("#nameId").val(data.roleName);
+                }
+            });
+        }
+
+
+        function UpdateRole() {
+            var inputPayload = {
+                "roleName": $("#nameId").val()
+            }
+            var inputPayloadString = JSON.stringify(inputPayload);
+            jQuery.ajax({
+                type: 'POST',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/role/" + $("#hiddenId").val(),
+                data: inputPayloadString,
+                success: function(data) {
+                    window.location.assign(location.origin + "/roleTable")
+                },
+                error: function(data) {
+                    window.location.assign(location.origin + "/roleTable");
+                }
+            });
+
+        }
+
+        function addRoleFunction() {
+            var modal = document.getElementById("myRoleModel");
+            modal.style.display = "block";
+        }
+
+        function AddRole() {
+            var inputPayload = {
+                "roleName": $("#roleNameId").val()
+            }
+            var inputPayloadString = JSON.stringify(inputPayload);
+            jQuery.ajax({
+                type: 'POST',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/saveRole",
+                data: inputPayloadString,
+                success: function(data) {
+                    alert("Role saved successfully.");
+                    window.location.assign(location.origin + "/roleTable")
+                },
+                error: function(data) {
+                    alert("Error while saving new role.")
+                    window.location.assign(location.origin + "/roleTable");
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

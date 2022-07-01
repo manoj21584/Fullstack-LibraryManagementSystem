@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>OneNow | CS Books</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="CheckTheTheme()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">LADMYAC</h1>
+            <div class="userinfo" hidden>
+                <b><span sec:authentication="name" id="userEmailIdSpan"> Name</span></b>&nbsp;
+                <i><span sec:authentication="principal.authorities">role</span></i>
+            </div>
+            <ul class="tabs">
+                <li class="tab "><a href="/CSE">BACK </a></li>
+                <li class="tab is-active"><a class="logoutButton" href="/logout">LOGOUT </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container" id="myContainer">
+        <div class="heading">
+            <p>First Semester</p>
+            <br>
+            <hr>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/CALA.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Calculus and Liner Alzebra</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1kut3DxAr2kNR-OKVX4KCu3pcpUnU2roA/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1kut3DxAr2kNR-OKVX4KCu3pcpUnU2roA"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/SP.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Semiconductor Physics</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1dIu7NhRnX8SXXjzt4vEqWzrMtIiI6fNf/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1dIu7NhRnX8SXXjzt4vEqWzrMtIiI6fNf"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/EGAD.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Engineering Graphics and Design</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1flzmHsjZQ3QcGcNesnE63sArnRxQZP1x/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1flzmHsjZQ3QcGcNesnE63sArnRxQZP1x"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/BEE.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Basic Electrical Engineering</h2>
+                <p>GRIET</p>
+                <a href="https://drive.google.com/file/d/1UEJuiE2le6vSBqb7eVserEzxtPw-FCSm/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1UEJuiE2le6vSBqb7eVserEzxtPw-FCSm"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+
+        <div class="heading">
+            <p>Second Semester</p>
+            <br>
+            <hr>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/CFE.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Engineering Chemistry</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1IEr6HOF7Gu4VV9MzxrqRWRaQdzn5ni8O/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1IEr6HOF7Gu4VV9MzxrqRWRaQdzn5ni8O"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/MPAS.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Probablity and Statistics</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1tVfuy9oFiBFk3OD75I6KMxGlrqZATNJW/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1tVfuy9oFiBFk3OD75I6KMxGlrqZATNJW"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/PPS.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Programming for Problem Solving</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1gwZGnx5eFkIoDSDGFP81-MW9nofPD9MQ/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1gwZGnx5eFkIoDSDGFP81-MW9nofPD9MQ"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/WT.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Workshop Technology</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1aIYbCj4veY_q132Y-9yMJx2CdTAHjGUY/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1aIYbCj4veY_q132Y-9yMJx2CdTAHjGUY"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="heading">
+            <p>Third Semester</p>
+            <br>
+            <hr>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/DSAA.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Data Structures and Algorithms</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1vAHwAkC5rstlDpGTouAWbOO5RgKhIMy-/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1vAHwAkC5rstlDpGTouAWbOO5RgKhIMy-"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/DMS.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Database Management Systems</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1CYWbsVNcmBUoC2faE9nsXrfo5MEWQ6Ok/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1CYWbsVNcmBUoC2faE9nsXrfo5MEWQ6Ok"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/DE.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Digital Electronics</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1T_l2sjLmcCJuNei2ph1uJcc0-ZxJfsL_/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1T_l2sjLmcCJuNei2ph1uJcc0-ZxJfsL_"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/MCALA.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Multivariable Calculus and Linear Alzebra</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1TPGUVFkyLhmmoYAdD0FkgcuaeY6KnwWW/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1TPGUVFkyLhmmoYAdD0FkgcuaeY6KnwWW"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/PP.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Python Programming</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1wylbJvAPElYthWRn54OarKaBV3NhhD2r/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1wylbJvAPElYthWRn54OarKaBV3NhhD2r"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="heading">
+            <p>Fourth Semester</p>
+            <br>
+            <hr>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/CPP.png" />
+            </div>
+            <div class="contentBox">
+                <h2>C++ Programming</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1TUqpNUABESs57saK5sxBPDSMYHITB35F/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1TUqpNUABESs57saK5sxBPDSMYHITB35F"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/WebT.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Web Technology</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1KolAWKT47Z7wGmoDjD2YRTyEWk8tYfuF/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1KolAWKT47Z7wGmoDjD2YRTyEWk8tYfuF"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/CAO.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Computer Architecture and Organisation</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1HMV88LxstHjp-fvYv5wQuE5AB4F15_gp/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1HMV88LxstHjp-fvYv5wQuE5AB4F15_gp"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/DM.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Discrete Mathematics</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1IqV3hEBvkd4G_H5_Llf0PhD6nL-Uw0vH/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1IqV3hEBvkd4G_H5_Llf0PhD6nL-Uw0vH"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/OS.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Operating Systems</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/15wsp9q-5kGnqoArHIFlDfTci1qDLt5Cq/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=15wsp9q-5kGnqoArHIFlDfTci1qDLt5Cq"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/OB.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Organisational Behaviour</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1DSmkqR6pQTIW2I1ise2c3XgYiMknftFQ/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1DSmkqR6pQTIW2I1ise2c3XgYiMknftFQ"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="heading">
+            <p>Fifth Semester</p>
+            <br>
+            <hr>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/CN.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Computer Networks</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1SLZjkFjnvU_2vLgJjioQLvvS7xBo3F83/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1SLZjkFjnvU_2vLgJjioQLvvS7xBo3F83"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/DAAOA.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Design & Analysis of Algorithms</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1G0KjijuPf8lBXsMC5U1Zn58x0NyDJMx1/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1G0KjijuPf8lBXsMC5U1Zn58x0NyDJMx1"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/FLA.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Formal Languages and Automata</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1GJ7sfDYYrsOJRRzNMqlWElJX0wtdp8a2/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1GJ7sfDYYrsOJRRzNMqlWElJX0wtdp8a2"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/MP.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Microprocessor</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1Cc2Sv2J735JehecW2C-kQwxI1-vvcJB0/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1Cc2Sv2J735JehecW2C-kQwxI1-vvcJB0"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/PWJ.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Programming in Java</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1LtCa4Gr_MnH06PUe-HEpjfaMFiIQYwJI/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1LtCa4Gr_MnH06PUe-HEpjfaMFiIQYwJI"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/SE.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Software Engineering</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1Q0dSV5hR2VP33vZwWP-F1Nmvcp7du8qR/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1Q0dSV5hR2VP33vZwWP-F1Nmvcp7du8qR"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="heading">
+            <p>Sixth Semester</p>
+            <br>
+            <hr>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/ADBMS.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Advanced Database Management Systems</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1kIZpwgL56Z2yniZC-BrNK42Em8DoFqRa/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1kIZpwgL56Z2yniZC-BrNK42Em8DoFqRa"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/AI.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Artificial Intelligence</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1-ckQ4k7IMLtl6wQ-H7POHik0VH_ioGWl/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1-ckQ4k7IMLtl6wQ-H7POHik0VH_ioGWl"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/AJ.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Advanced Java</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1HFPp9jsP3Fvuz6pYRtxBt0hVJQsyqiQT/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1HFPp9jsP3Fvuz6pYRtxBt0hVJQsyqiQT"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/CD.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Compiler Design</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1eBycMyt-NDxXQnwJIMcLvZTwnnsr95e7/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1eBycMyt-NDxXQnwJIMcLvZTwnnsr95e7"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/DS.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Data Science</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1Tr6vFnputIJIExP35y_3NXZ3txqIjpi8/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1Tr6vFnputIJIExP35y_3NXZ3txqIjpi8"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/MAWC.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Mobile & Wireless Communication</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1RS2IPfUZgJ4p3lzcgyIwALpPQLiGIpzP/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1RS2IPfUZgJ4p3lzcgyIwALpPQLiGIpzP"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="heading">
+            <p>Seventh Semester</p>
+            <br>
+            <hr>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/EFP.png" />
+            </div>
+            <div class="contentBox">
+                <h2>English For Professionals</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/11TvH_Oqq7VeriClXw8dN6nUu6sUtdrOt/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=11TvH_Oqq7VeriClXw8dN6nUu6sUtdrOt"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/NSAC.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Network Security & Cryptography</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1_oVeN83Uioalv_rUoCvFN3o3Pe6C9oNU/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1_oVeN83Uioalv_rUoCvFN3o3Pe6C9oNU"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/NN.jpg" />
+            </div>
+            <div class="contentBox">
+                <h2>Neural Networks</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1CBXTYlzyS2j1HbvgPVunouBHcSwegac5/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1CBXTYlzyS2j1HbvgPVunouBHcSwegac5"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="imageBox">
+                <img src="images/IHT.png" />
+            </div>
+            <div class="contentBox">
+                <h2>Information Hiding Techniques</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1jHxHRf75MWlf6xP7Atlq2LKh6H0JbMhG/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1jHxHRf75MWlf6xP7Atlq2LKh6H0JbMhG"><span>Download</span></a>
+            </div>
+        </div>
+        <div class="heading">
+            <p>More content soon</p>
+            <br>
+            <hr>
+        </div>
+    </div>
+
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+    </script>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="changeTheme()"><i class='bx bx-moon'></i></a>
+    </div>
+    <script src="js/themeScript.js"></script>
+
+
+</body>
+
+</html>

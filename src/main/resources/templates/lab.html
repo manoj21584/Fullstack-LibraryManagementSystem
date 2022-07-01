@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>OneNow | CS Lab</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="CheckTheTheme()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">LADMYAC</h1>
+            <div class="userinfo" hidden>
+                <b><span sec:authentication="name" id="userEmailIdSpan"> Name</span></b>&nbsp;
+                <i><span sec:authentication="principal.authorities">role</span></i>
+            </div>
+            <ul class="tabs">
+                <li class="tab "><a href="/CSE">BACK </a></li>
+                <li class="tab is-active"><a class="logoutButton" href="/logout">LOGOUT </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="container">
+        <div class="heading">
+            <p>Lab Files, Assignments & Projects</p>
+            <br>
+            <hr>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Core Java</h2>
+                <p>Contains 20 programs</p>
+                <a href="https://drive.google.com/file/d/1YrO8tNEHBV3U6EzcylcauZw0PZBbF9bN/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1YrO8tNEHBV3U6EzcylcauZw0PZBbF9bN"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Advanced Java</h2>
+                <p>Contains 31 practicals</p>
+                <a href="https://drive.google.com/file/d/1BaAmDlWBpSuq4bCHnEM5TVTnHBhPhcNj/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1BaAmDlWBpSuq4bCHnEM5TVTnHBhPhcNj"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Artificial Intelligence</h2>
+                <p>Contains 10 practicals</p>
+                <a href="https://drive.google.com/file/d/1PqVf-yHqUgN3P2_6HJMGRC4TnWvUldDI/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1PqVf-yHqUgN3P2_6HJMGRC4TnWvUldDI"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Compiler Design</h2>
+                <p>Contains 10 practicals</p>
+                <a href="https://drive.google.com/file/d/1o5NYXw6LxEWxCZD7_Blp1cwOskE7L72g/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1o5NYXw6LxEWxCZD7_Blp1cwOskE7L72g"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Core Java</h2>
+                <p>contains 121 programs</p>
+                <a href="https://drive.google.com/file/d/1104WOy9pOjQPoG8Cpn8lVGzTEoUxHXk-/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1104WOy9pOjQPoG8Cpn8lVGzTEoUxHXk-"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Data Science</h2>
+                <p>Small project</p>
+                <a href="https://drive.google.com/file/d/19pg8OkjKwre-CrCKJkhkpNXbrOSSZuiR/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=19pg8OkjKwre-CrCKJkhkpNXbrOSSZuiR"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Design and Analysis of Algorithms</h2>
+                <p>Contains 10 practicals</p>
+                <a href="https://drive.google.com/file/d/1GwlHi0pSq9NG-tt-OaqS_Lt9NZOnqLP8/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1GwlHi0pSq9NG-tt-OaqS_Lt9NZOnqLP8"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Operating Systems</h2>
+                <p>Practical File</p>
+                <a href="https://drive.google.com/file/d/11swXluoIBRQ-z6pwHYzP3zjvPROlVr5p/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=11swXluoIBRQ-z6pwHYzP3zjvPROlVr5p"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="contentBox">
+                <h2>Web Technology</h2>
+                <p>Assignment-Internet Protocols</p>
+                <a href="https://drive.google.com/file/d/1w3vslif9WHpWk6sJLiUCIaNj4HR4cRxh/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1w3vslif9WHpWk6sJLiUCIaNj4HR4cRxh"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="heading">
+            <p>More content soon</p>
+            <br>
+            <hr>
+        </div>
+    </div>
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+    </script>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="changeTheme()"><i class='bx bx-moon'></i></a>
+    </div>
+    <script src="js/themeScript.js"></script>
+</body>
+
+</html>

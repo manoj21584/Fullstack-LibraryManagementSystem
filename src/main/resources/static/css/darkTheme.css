@@ -1,0 +1,1144 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: black;
+}
+
+#myWallpaper {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    z-index: 0;
+}
+
+.myTopbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 6px 14px;
+    z-index: 99;
+}
+
+.myTopbar nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.myTopbar nav #btn {
+    top: 22px;
+    color: azure;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.myTopbar nav h1 {
+    font-size: 28px;
+    font-weight: 600px;
+    margin-left: 0px;
+    color: crimson;
+}
+
+.myTopbar nav .tabs {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.myTopbar nav .tabs .tab {
+    display: block;
+    padding-left: 10px;
+    margin-top: 2px;
+}
+
+.myTopbar nav .tabs .tab a {
+    color: azure;
+    display: block;
+    padding: 5px 13px;
+    text-decoration: none;
+    border: 1px solid azure;
+    border-radius: 5px;
+    transition: all .5s ease;
+    cursor: pointer;
+    display: block;
+}
+
+.myTopbar nav .tabs .tab .logoutButton {
+    color: azure;
+    display: block;
+    padding: 5px 13px;
+    text-decoration: none;
+    border: 1px solid azure;
+    border-radius: 5px;
+    transition: all .5s ease;
+    cursor: pointer;
+    display: block;
+}
+
+.myTopbar nav .tabs .tab:hover .logoutButton {
+    background-color: red;
+    color: white;
+    border: 1px solid red;
+}
+
+.myTopbar nav .tabs .tab:hover a {
+    background-color: azure;
+    color: black;
+}
+
+.myTopbar nav .tabs .tab.is-active a {
+    background-color: azure;
+    color: black;
+    font-weight: 0;
+}
+
+
+/*//////////////////////////////////////////////////////////////////*/
+
+.mySidebar {
+    position: fixed;
+    left: -78px;
+    top: 55px;
+    height: 260px;
+    border-radius: 5px;
+    width: 78px;
+    backdrop-filter: blur(1px);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 6px 14px;
+    z-index: 99;
+    transition: all 0.7s ease;
+}
+
+.mySidebar li {
+    position: relative;
+    margin: 8px 0;
+    list-style: none;
+}
+
+.mySidebar li i {
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+    border-radius: 5px;
+    color: azure;
+    min-width: 50px;
+    text-align: center;
+}
+
+.mySidebar li a {
+    display: flex;
+    width: 100%;
+    border-radius: 5px;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background-color: black;
+    color: azure;
+    border: 1px solid azure;
+}
+
+.mySidebar li a .myListItemNames {
+    color: #ffff;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.4s;
+}
+
+.mySidebar.open {
+    width: 260px;
+}
+
+.mySidebar.open .myList {
+    margin-top: 10px;
+    margin-left: 78px;
+    height: 500px;
+}
+
+.mySidebar li a:hover {
+    background-color: azure;
+}
+
+.mySidebar.open li a .myListItemNames {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mySidebar li a:hover .myListItemNames,
+.mySidebar li a:hover i {
+    color: black;
+    transition: all 0.7s ease;
+}
+
+.userDetails {
+    text-align: center;
+    color: azure;
+    font-size: 25px;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: auto;
+    margin-top: 50px;
+}
+
+.container .footer {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    margin-top: 10px;
+    height: 350px;
+    background-color: #282C35;
+    text-align: center;
+    color: azure;
+    z-index: 0;
+}
+
+.container .footer .footerIcon {
+    color: azure;
+    text-decoration: none;
+}
+
+.container .footer .footerIcon:hover {
+    color: rgb(0, 202, 0);
+    transition: all 0.4s ease;
+}
+
+.container .myQuote {
+    width: 1250px;
+    background-color: black;
+    color: azure;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-left: 23%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+.container .heading {
+    width: 1250px;
+    margin: 10px;
+    padding: 20px 20px;
+    background-color: black;
+    color: azure;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    float: left;
+    text-align: center;
+}
+
+.container .heading i {
+    color: rgb(0, 201, 0);
+}
+
+.container .heading hr {
+    border-top: 1px solid azure;
+}
+
+
+/* ///////////////////////Small Cards/////////////////////*/
+
+.container .mySmallCard {
+    width: 250px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:20px;
+    margin-bottom:20px;
+    padding: 20px 20px;
+    background-color: #282C35;
+    border-radius: 10px;
+    float: left;
+}
+
+.container .mySmallCard .imageBox {
+    position: relative;
+    text-align: center;
+    margin-top: -5px;
+}
+
+.container .mySmallCard .imageBox img {
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+.container .mySmallCard .bookIcon i {
+    font-size: 50px;
+    margin-left: 40%;
+    color: azure;
+}
+
+.container .mySmallCard .contentBox {
+    position: relative;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.container .mySmallCard .contentBox h2 {
+    font-weight: 700;
+    font-size: 1.4em;
+    letter-spacing: 1px;
+    color: azure;
+}
+
+.container .mySmallCard .contentBox p {
+    color: azure;
+}
+
+.container .mySmallCard .contentBox a {
+    color: azure;
+    border: 1px solid azure;
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.5s ease;
+}
+
+.container .mySmallCard .contentBox a:hover {
+    background-color: azure;
+    color: black;
+}
+
+
+/* /////////////////////// Big Cards/////////////////////*/
+
+.container .myBigCard {
+    width: 350px;
+    margin-left:10px;
+    margin-right:10px;
+    margin-top:20px;
+    margin-bottom:20px;
+    padding: 20px 20px;
+    backdrop-filter: blur(1px);
+    background-color: #282C35;
+    border-radius: 5px;
+    float: left;
+}
+
+.container .myBigCard h1 {
+    text-align: center;
+    text-decoration: none;
+    font-size: 3ex;
+    color: azure;
+}
+
+.container .myBigCard p .text-danger {
+    color: red;
+    font-size: 14px;
+    text-align: left;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.container .myBigCard p {
+    color: azure;
+}
+
+.container .myBigCard h1 i {
+    color: red;
+}
+
+.container .myBigCard ul {
+    margin-top: 20px;
+    margin-left: 15%;
+    list-style-type: none;
+}
+
+.container .myBigCard ul li {
+    margin-top: 10px;
+}
+
+.container .myBigCard .myInputFields {
+    width: 100%;
+    padding: 5px 10px;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: white;
+}
+
+.container .myBigCard .myContactNumber {
+    width: 190px;
+    display: inline-block;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: black;
+}
+
+.container .myBigCard .myCountryCode {
+    width: 115px;
+    display: inline-block;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: black;
+}
+
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
+
+.container .myBigCard .myPassowrd {
+    width: 290px;
+    display: inline-block;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: black;
+}
+
+.container .myBigCard .myPassowrdCheckbox {
+    display: inline-block;
+    margin: auto;
+    margin-top: 10px;
+    color: black;
+    background-color: black;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+}
+
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
+
+.container .myBigCard .myConfirmPassowrd {
+    width: 290px;
+    display: inline-block;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: black;
+}
+
+.container .myBigCard .myConfirmPassowrdCheckbox {
+    display: inline-block;
+    margin: auto;
+    margin-top: 10px;
+    color: black;
+    background-color: black;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 0.15em;
+    transform: translateY(-0.075em);
+}
+
+
+/*---------------------------------------------------------------------------------------------------------------------------*/
+
+.container .myBigCard .mySubmitButton {
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    color: rgb(0, 202, 0);
+    border: 1px solid #3db2ff;
+    background-color: #3db3ff;
+    color:black;
+    text-decoration: none;
+    transition: all .5s ease;
+    cursor: pointer;
+}
+
+.container .myBigCard .mySubmitButton:hover {
+    background-color: rgb(0, 202, 0);
+    color: azure;
+    border: 1px solid rgb(0, 202, 0);
+}
+
+
+/*/ /////////////////////////////////////Admin Modal ???????????????????????????*/
+
+.myAdminModel {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 99;
+    top: 70px;
+    width: 300px;
+    /* Full width */
+    height: 170px;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: #282C35;
+    /* Black w/ opacity */
+    border-radius: 10px;
+    box-shadow: 10px 10px 40px 0px rgba(40, 44, 53, 1);
+}
+
+.myAdminModel .modelList {
+    position: relative;
+    margin: 20px 20px;
+    list-style: none;
+    justify-content: space-around;
+}
+
+.myAdminModel .modelList .modelHeader h1 {
+    font-size: 25px;
+    color: crimson;
+}
+
+.myAdminModel .modelList .modelHeader .closeA {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.myAdminModel .modelList .modelHeader .closeA:hover,
+.myAdminModel .modelList .modelHeader .closeA:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.myAdminModel .modelList .modelFooter a {
+    color: azure;
+    border: 1px solid azure;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    float: right;
+}
+
+.myAdminModel .modelList .modelFooter a:hover {
+    background-color: azure;
+    color: black;
+}
+
+.myAdminModel .modelList .listItems input {
+    width: 100%;
+    padding: 5px 10px;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: azure;
+}
+
+
+/*//////////////////////////////////////Delete Modal ???????????????????????????*/
+
+.myDeleteModel {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 99;
+    top: 70px;
+    width: 300px;
+    /* Full width */
+    height: 180px;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: #282C35;
+    /* Black w/ opacity */
+    border-radius: 10px;
+    box-shadow: 10px 10px 40px 0px rgba(40, 44, 53, 1);
+}
+
+.myDeleteModel .modelList {
+    position: relative;
+    margin: 20px 20px;
+    list-style: none;
+    justify-content: space-around;
+    color: azure;
+}
+
+.myDeleteModel .modelList .modelHeader h1 {
+    font-size: 25px;
+    color: crimson;
+}
+
+.myDeleteModel .modelList .modelHeader .closeD {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.myDeleteModel .modelList .modelHeader .closeD:hover,
+.myDeleteModel .modelList .modelHeader .closeD:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.myDeleteModel .modelList .modelFooter a {
+    color: azure;
+    border: 1px solid azure;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    float: right;
+    transition: all 0.5s ease;
+}
+
+.myDeleteModel .modelList .modelFooter a:hover {
+    background-color: red;
+    color: black;
+    border: 1px solid red;
+}
+
+.myDeleteModel .modelList .listItems input {
+    width: 100%;
+    padding: 5px 10px;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    color: black;
+    background-color: azure;
+    border: none;
+    border-radius: 5px;
+    caret-color: black;
+}
+
+
+/*//////////////////////////////////////Upload Modal ???????????????????????????*/
+
+.myUploadModel {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 99;
+    top: 70px;
+    width: 350px;
+    /* Full width */
+    height: 300px;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: #282C35;
+    /* Black w/ opacity */
+    border-radius: 10px;
+    box-shadow: 10px 10px 40px 0px rgba(40, 44, 53, 1);
+}
+
+.myUploadModel .modelList {
+    position: relative;
+    margin: 20px 20px;
+    list-style: none;
+    justify-content: space-around;
+}
+
+.myUploadModel .modelList span {
+    color: azure;
+}
+
+.myUploadModel .modelList .modelHeader h1 {
+    font-size: 25px;
+    color: crimson;
+}
+
+.myUploadModel .modelList .modelHeader .closeU {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.myUploadModel .modelList .modelHeader .closeU:hover,
+.myUploadModel .modelList .modelHeader .closeU:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.myUploadModel .modelList .modelFooter a {
+    color: azure;
+    border: 1px solid azure;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    float: right;
+    transition: all 0.5s ease;
+}
+
+.myUploadModel .modelList .modelFooter a:hover {
+    background-color: rgb(0, 202, 0);
+    color: black;
+    border: 1px solid rgb(0, 202, 0);
+}
+
+.myUploadModel .modelList .listItems input {
+    width: 100%;
+    padding: 5px 10px;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: azure;
+}
+
+
+/*//////////////////////////////////////Edit Modal ???????????????????????????*/
+
+.myEditModel {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 99;
+    top: 70px;
+    width: 350px;
+    /* Full width */
+    height: 260px;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: #282C35;
+    /* Black w/ opacity */
+    border-radius: 10px;
+    box-shadow: 10px 10px 40px 0px rgba(40, 44, 53, 1);
+}
+
+.myEditModel .modelList {
+    position: relative;
+    margin: 20px 20px;
+    list-style: none;
+    justify-content: space-around;
+}
+
+.myEditModel .modelList span {
+    color: azure;
+}
+
+.myEditModel .modelList .modelHeader h1 {
+    font-size: 25px;
+    color: crimson;
+}
+
+.myEditModel .modelList .modelHeader .closeE {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.myEditModel .modelList .modelHeader .closeU:hover,
+.myEditModel .modelList .modelHeader .closeU:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.myEditModel .modelList .modelFooter a {
+    color: azure;
+    border: 1px solid azure;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    float: right;
+    transition: all 0.5s ease;
+}
+
+.myEditModel .modelList .modelFooter a:hover {
+    background-color: rgb(0, 183, 255);
+    color: black;
+    border: 1px solid rgb(0, 183, 255);
+}
+
+.myEditModel .modelList .listItems input {
+    width: 100%;
+    padding: 5px 10px;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: azure;
+}
+
+
+/*//////////////////////////////////////Edit Modal ???????????????????????????*/
+
+.myRoleModel {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 99;
+    top: 70px;
+    width: 350px;
+    /* Full width */
+    height: 170px;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: #282C35;
+    /* Black w/ opacity */
+    border-radius: 10px;
+    box-shadow: 10px 10px 40px 0px rgba(40, 44, 53, 1);
+}
+
+.myRoleModel .modelList {
+    position: relative;
+    margin: 20px 20px;
+    list-style: none;
+    justify-content: space-around;
+}
+
+.myRoleModel .modelList span {
+    color: azure;
+}
+
+.myRoleModel .modelList .modelHeader h1 {
+    font-size: 25px;
+    color: crimson;
+}
+
+.myRoleModel .modelList .modelHeader .closeRM {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.myRoleModel .modelList .modelHeader .closeRM:hover,
+.myRoleModel .modelList .modelHeader .closeRM:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.myRoleModel .modelList .modelFooter a {
+    color: azure;
+    border: 1px solid azure;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    float: right;
+    transition: all 0.5s ease;
+}
+
+.myRoleModel .modelList .modelFooter a:hover {
+    background-color: gold;
+    color: black;
+    border: 1px solid gold;
+}
+
+.myRoleModel .modelList .listItems input {
+    width: 100%;
+    padding: 5px 10px;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: azure;
+}
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.themeChanger {
+    font-family: Verdana, Geneva, sans-serif;
+    z-index: 99;
+}
+
+.themeChanger .float {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+    background-color: azure;
+    color: black;
+    border-radius: 50px;
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.themeChanger .float:hover {
+    color: azure;
+    background-color: black;
+    border: 1px solid azure;
+}
+
+.themeChanger .float .bx-moon {
+    margin-top: 6px;
+    font-size: 40px;
+}
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.universalButton {
+    color: black;
+    border: 1px solid BLACK;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all .5s ease;
+}
+
+.universalButton:hover {
+    background-color: black;
+    color: azure;
+}
+
+.redButton {
+    color: azure;
+    border: 1px solid red;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all .5s ease;
+}
+
+.redButton:hover {
+    background-color: red;
+    border: 1px solid red;
+    color: black;
+}
+
+.blueButton {
+    color: azure;
+    border: 1px solid rgb(0, 183, 255);
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all .5s ease;
+}
+
+.blueButton:hover {
+    background-color: rgb(0, 183, 255);
+    border: 1px solid rgb(0, 183, 255);
+    color: black;
+}
+
+.greenButton {
+    color: azure;
+    border: 1px solid rgb(0, 202, 0);
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all .5s ease;
+}
+
+.greenButton:hover {
+    background-color: rgb(0, 202, 0);
+    border: 1px solid rgb(0, 202, 0);
+    color: black;
+}
+
+.goldButton {
+    color: azure;
+    border: 1px solid gold;
+    padding: 5px 20px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all .5s ease;
+}
+
+.goldButton:hover {
+    background-color: gold;
+    border: 1px solid gold;
+    color: black;
+}
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.universalInput {
+    color: azure;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: azure;
+    display: block;
+    padding: 8px 13px;
+    text-decoration: none;
+    border: 1px solid azure;
+    border-radius: 5px;
+    transition: all .5s ease;
+    cursor: pointer;
+    display: block;
+}
+
+.universalSelect {
+    color: azure;
+    width: 100%;
+    background-color: black;
+    border: none;
+    border-radius: 5px;
+    caret-color: azure;
+    display: block;
+    padding: 8px 13px;
+    text-decoration: none;
+    border: 1px solid azure;
+    border-radius: 5px;
+    transition: all .5s ease;
+    cursor: pointer;
+    display: block;
+}
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+.tg {
+    border-collapse: collapse;
+    border-color: black;
+    border-spacing: 0;
+}
+
+.tg td {
+    border-color: azure;
+    border-style: solid;
+    border-width: 1px;
+    font-family: Arial, sans-serif;
+    color: azure;
+    font-size: 17px;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+}
+
+.tg th {
+    border-color: azure;
+    border-style: solid;
+    border-width: 3px;
+    color: azure;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+}
+
+.tg .tg-baqh {
+    color: azure;
+    font-size: 17px;
+    text-align: center;
+    vertical-align: top
+}
+
+.tg .tg-2j02 {
+    color: azure;
+    font-size: 17px;
+    text-align: center;
+    vertical-align: top
+}
+
+.tg .tg-4j02 {
+    color: azure;
+    font-size: 17px;
+    text-align: center;
+    vertical-align: top
+}

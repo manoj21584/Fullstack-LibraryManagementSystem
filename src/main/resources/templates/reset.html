@@ -1,0 +1,174 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OneNow | Reset Password</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="hideAllErrorMessage()">
+    <header class="myTopbar">
+        <nav>
+            <h1>LADMYAC</h1>
+            <ul class="tabs">
+                <li class="tab is-active"><a class="logoutButton" href="/login"> CANCEL </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <div class="heading">
+            <p>Enter following details to change password</p>
+            <br>
+            <hr>
+        </div>
+        <div class="myBigCard">
+            <h1>Reset password</h1>
+            <br/>
+            <p>
+                <input type="number" class="myInputFields" id="otpId" style="letter-spacing: 5px;" autofocus="" placeholder="6-digit OTP">
+                <span class="text-danger" id="otpSpanId">OPT  is required</span>
+                <span class="text-danger" id="fixLengthOTPSpanId">OTP length exceeded.( <span id="totalChars"></span> digits )</span>
+            </p>
+            <p>
+                <input type="text" class="myInputFields" id="passwordId" placeholder="Create password" required />
+                <span class="text-danger" id="emptyPasswordSpanId">Please create password.</span>
+                <span class="text-danger" id="shortPasswordSpanId">Password length must be atleast 8 chars.</span>
+                <span class="text-danger" id="longPasswordSpanId">Password length must not exceed 15 chars.</span>
+            </p>
+            <p>
+                <input type="password" class="myInputFields" id="confirmPasswordId" placeholder="Confirm password" required />
+                <span class="text-danger" id="confirmPasswordSpanId">Both passwords must be same.</span>
+            </p>
+            <p>
+                <button type="button" class="mySubmitButton" onclick="varifyAndSavePassword()">Update Password</button>
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function validateEmployeeInformation() {
+            var isValidated = true;
+
+            if ($("#otpId").val() == '') {
+                $("#otpSpanId").show();
+                isValidated = false;
+            } else {
+                if (($("#otpId").val()).length < 7) {
+                    $("#fixLengthOTPSpanId").hide();
+                    isValidated = true;
+                } else {
+                    $("#otpSpanId").hide();
+                    $("#fixLengthOTPSpanId").show();
+                    document.getElementById("totalChars").innerHTML = ($("#otpId").val()).length;
+                    isValidated = false;
+                }
+            }
+
+            if ($("#passwordId").val() == "") {
+                $("#emptyPasswordSpanId").show();
+                isValidated = false;
+            } else {
+                if ($("#passwordId").val().length < 8) {
+                    isValidated = false;
+                    $("#shortPasswordSpanId").show();
+                    $("#emptyPasswordSpanId").hide();
+                } else {
+                    if ($("#passwordId").val().length > 15) {
+                        isValidated = false;
+                        $("#shortPasswordSpanId").hide();
+                        $("#emptyPasswordSpanId").hide();
+                        $("#longPasswordSpanId").show();
+                    } else {
+                        isValidated = true;
+                        $("#longPasswordSpanId").hide();
+                    }
+                }
+            }
+            return isValidated;
+
+        }
+
+        function arePasswordsEqual() {
+            var areEqual = false;
+            if ($("#passwordId").val() == $("#confirmPasswordId").val()) {
+                $("#confirmPasswordSpanId").hide();
+                areEqual = true;
+            } else {
+                $("#confirmPasswordSpanId").show();
+                areEqual = false;
+            }
+            return areEqual;
+        }
+
+        function varifyAndSavePassword() {
+
+            if (validateEmployeeInformation() && arePasswordsEqual()) {
+                var inputPayload = {
+                    "otp": $("#otpId").val(),
+                    "password": $("#passwordId").val()
+                }
+                var inputPayloadString = JSON.stringify(inputPayload);
+                jQuery.ajax({
+                    type: 'POST',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    url: location.origin + "/updatePassword",
+                    data: inputPayloadString,
+                    success: function(data) {
+                        clearAllFormData();
+                        alert('Password changed successfully. Please login');
+                        window.location.assign("login");
+                    },
+                    error: function(data) {
+                        clearAllFormData();
+                        alert('OTP invalid or expired');
+                    }
+                });
+            }
+        }
+
+        function clearAllFormData() {
+            $("#otpId").val("");
+            $("#passwordId").val("");
+            $("#confirmPasswordId").val("");
+        }
+
+        function hideAllErrorMessage() {
+            $("#otpSpanId").hide();
+            $("#fixLengthOTPSpanId").hide();
+
+            $("#emptyPasswordSpanId").hide();
+            $("#shortPasswordSpanId").hide();
+            $("#longPasswordSpanId").hide();
+            $("#confirmPasswordSpanId").hide();
+        }
+    </script>
+    <script>
+        /*__________________________________________________theme changer__________________________________________*/
+        var theme = document.getElementById("stylesheet");
+        var isChanged = false;
+
+        function themeFunction() {
+            if (isChanged) {
+                theme.href = "css/brightTheme.css";
+                isChanged = false;
+            } else {
+                theme.href = "css/darkTheme.css";
+                isChanged = true;
+            }
+        }
+    </script>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="themeFunction()"><i class='bx bx-moon'></i></a>
+    </div>
+</body>
+<!-- RENAME IN HASH DANGI-->
+
+</html>

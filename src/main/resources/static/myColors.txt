@@ -1,0 +1,21 @@
+For logo
+color=crimson
+
+
+For Dark theme
+1.black
+2.gainsboro//azure
+3.Ebony  #282C35
+4.Red
+5.Caret color=white
+
+
+For Bright theme
+1.gainsboro//azure
+2.black
+3.burlyWood//cornsilk//bisque
+4.Red
+5.Caret color=black
+
+for heading icons
+1.   color: rgb(0, 201, 0);

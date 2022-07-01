@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OneNow | Feedbacks</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="getAllEmployeeInfo()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">LADMYAC</h1>
+            <ul class="tabs">
+                <li class="tab"><input class="universalInput" type="search" placeholder="Search" aria-label="Search" id="searchId"></li>
+                <li class="tab "><a href="/dashboard"> BACK </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/departments"><i class='bx bxs-building'></i> <span class="myListItemNames">Department</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/handleDownloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <input type="hidden" id="hiddenId" />
+        <div id="employeeTBLId"></div>
+    </div>
+
+    <div class="myDeleteModel" id="myDeleteModel">
+        <ul class="modelList">
+            <li class="modelHeader">
+                <span class="closeD">&times;</span>
+                <h1>Deleting...</h1>
+            </li>
+            </li>
+            <li class="listItems">
+                <p>
+                    Are you really Sure. You want to continue..
+                </p>
+            </li>
+            <li class="modelFooter">
+                <a href="#" onclick="deleteEmployeeData()">DELETE</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+        /*__________________________________________________theme changer__________________________________________*/
+        var theme = document.getElementById("stylesheet");
+        var isChanged = false;
+
+        function themeFunction() {
+            if (isChanged) {
+                theme.href = "css/brightTheme.css";
+                isChanged = false;
+            } else {
+                theme.href = "css/darkTheme.css";
+                isChanged = true;
+            }
+        }
+    </script>
+    <script src="js/deleteModal.js"></script>
+
+    <script type="text/javascript">
+        function getAllEmployeeInfo() {
+            jQuery
+                .ajax({
+                    type: 'GET',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    url: location.origin + "/allFeedback",
+                    success: function(data) {
+                            $('#employeeTBLId')
+                                .html(
+                                    '<table class="table  table-bordered "  id="allPat" ></table>');
+                            dataTable = $('#allPat')
+                                .dataTable({
+                                    "data": data,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "scrollCollapse": true,
+                                    "paging": true,
+                                    'iDisplayLength': 5,
+                                    "dom": 'lrtip',
+                                    "aoColumns": [{
+                                            "mDataProp": "id",
+                                            "title": "Id",
+                                            "width": "5%"
+                                        }, {
+                                            "mDataProp": "name",
+                                            "title": "Name",
+                                            "width": "15%"
+                                        }, {
+                                            "mDataProp": "email",
+                                            "title": "Email",
+                                            "width": "15%"
+                                        }, {
+                                            "mDataProp": "subject",
+                                            "title": "Subject",
+                                            "width": "15%"
+                                        }, {
+                                            "mDataProp": "feedback",
+                                            "title": "Response",
+                                            "width": "30%"
+                                        },
+
+                                        {
+                                            "mDataProp": "",
+                                            "title": "Remove",
+                                            "width": "2%"
+                                        }
+                                    ],
+                                    "columnDefs": [
+
+                                        {
+                                            "targets": -1,
+                                            "sClass": "editTblAction",
+                                            "data": null,
+                                            "title": "ReSendOTP",
+                                            "bSortable": false,
+                                            "sWidth": "20px",
+                                            //"defaultContent": "<a class='reSendOtp' title='Delete Record' href=\"\" onclick=\deleteData();return false;\"><span class='glyphicon glyphicon-trash'></span></a>"
+                                            render: function(data,
+                                                type, row) {
+                                                return '<a class="redButton" href="#" onclick="deleteData(' +
+                                                    row.id +
+                                                    ')">DELETE</a>';
+                                            }
+                                        }
+                                    ]
+                                });
+
+                        }
+                        //)
+                });
+            $("#searchId").keyup(function() {
+                dataTable.fnFilter(this.value);
+                $("#allPat_filter").hide();
+            });
+
+        }
+
+        function deleteData(empId) {
+            var modal = document.getElementById("myDeleteModel");
+            modal.style.display = "block";
+            $("#hiddenId").val(empId);
+        }
+
+        function editData(empId) {
+            $("#editInformation").modal();
+            $("#hiddenId").val(empId);
+        }
+
+        function deleteEmployeeData() {
+            jQuery.ajax({
+                type: 'DELETE',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/feedback/" + $("#hiddenId").val(),
+                success: function(data) {
+                    debugger;
+                    window.location.assign(location.origin + "/feedbackTable")
+                },
+                error: function(data) {
+                    window.location.assign(location.origin + "/feedbackTable");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

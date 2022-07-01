@@ -1,0 +1,117 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>OneNow | Reset Password</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="hideAllErrorMessage()">
+    <header class="myTopbar">
+        <nav>
+            <h1>LADMYAC</h1>
+            <ul class="tabs">
+                <li class="tab is-active"><a class="logoutButton" href="/login"> CANCEL </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <div class="heading">
+            <p>Enter following details to change password</p>
+            <br>
+            <hr>
+        </div>
+        <div class="myBigCard">
+            <h1>Forgot password?</h1>
+            <br/>
+            <p>
+                <input type="email" class="myInputFields" id="emailId" placeholder="Email" required />
+                <span class="text-danger" id="invalidEmailSpanId">Email is invalid.</span>
+                <span class="text-danger" id="emptyEmailSpanId">Email cannot be empty.</span>
+            </p>
+            <p>
+                <button type="button" class="mySubmitButton" onclick="varifyAndSendOtp()">SEND OTP</button>
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function validateInformation() {
+            var isValidated = true;
+            if ($("#emailId").val() == "") {
+                $("#emptyEmailSpanId").show();
+                isValidated = false;
+            } else {
+                if ($("#emailId").val().includes("@") && $("#emailId").val().includes(".com")) {
+                    $("#invalidEmailSpanId").hide();
+                    isValidated = true;
+                } else {
+                    $("#emptyEmailSpanId").hide();
+                    $("#invalidEmailSpanId").show();
+                    isValidated = false;
+                }
+            }
+            return isValidated;
+        }
+
+        function varifyAndSendOtp() {
+            if (validateInformation()) {
+                var emailEntered = $("#emailId").val();
+                jQuery.ajax({
+                    type: 'POST',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    url: location.origin + "/reset/" + emailEntered,
+                    success: function() {
+                        clearAllFormData();
+                        console.log("sucessfully sent");
+                        alert('OTP sucessfully sent to registered email.');
+                        window.location.assign("/reset");
+                    },
+                    error: function() {
+                        clearAllFormData();
+                        console.log("Error while sending");
+                        alert("Entered email does not exists");
+                    }
+                });
+            }
+        }
+
+        function clearAllFormData() {
+            $("#emailId").val("");
+        }
+
+        function hideAllErrorMessage() {
+            $("#emptyEmailSpanId").hide();
+            $("#invalidEmailSpanId").hide();
+        }
+    </script>
+    <script>
+        /*__________________________________________________theme changer__________________________________________*/
+        var theme = document.getElementById("stylesheet");
+        var isChanged = false;
+
+        function themeFunction() {
+            if (isChanged) {
+                theme.href = "css/brightTheme.css";
+                isChanged = false;
+            } else {
+                theme.href = "css/darkTheme.css";
+                isChanged = true;
+            }
+        }
+    </script>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="themeFunction()"><i class='bx bx-moon'></i></a>
+    </div>
+</body>
+<!-- RENAME IN HASH FP1-->
+
+</html>
