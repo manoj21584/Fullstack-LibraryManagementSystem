@@ -47,8 +47,8 @@ public class UserDataController {
 		if (tempEmailId != null && !"".equals(tempEmailId)) {
 			Users userMailObj = userRepo.findByEmail(tempEmailId);
 			if (userMailObj == null) {
-				users.setIsActive(false);
-				users.setToken(UUID.randomUUID().toString());
+				users.setIsActive(true);
+				// users.setToken(UUID.randomUUID().toString());
 				if((users.getEmail()).equals("manojraj310@gmail.com")){
 					users.setRole("CREATER");
 				}
@@ -57,9 +57,10 @@ public class UserDataController {
 				}
 				users.setMyTheme("BRIGHT");
 				encodePassword(users);
-				emailService.sendMail(users, request);
+				// emailService.sendMail(users, request);
 			} else {
-				throw new Exception("User with " + tempEmailId + " is already exist");
+				// throw new Exception("User with " + tempEmailId + " is already exist");
+				throw new Exception("Some error occured");
 			}
 		}
 		return userRepo.save(users);
