@@ -1,4 +1,4 @@
-package org.application.Controller;
+package org.application.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.application.Entity.Users;
+import org.application.entity.Users;
 import org.application.Repository.UserRepo;
 import org.application.Service.EmailService;
 import org.application.Service.EmailServiceOTP;
@@ -68,7 +68,7 @@ public class UserDataController {
 
 	@PostMapping("/adminLogin")
 	public void isAdmin(@RequestBody Users users, HttpServletRequest request) throws Exception {
-		String tempEmailId = "rohit821128@gmail.com";
+		String tempEmailId = "manojraj310@gmail.com";
 
 		Users Admin = userRepo.findByEmail(tempEmailId);
 		if (!passwordEncoder.matches(users.getPassword(), Admin.getPassword())) {

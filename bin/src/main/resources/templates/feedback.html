@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>e-Grow | Feedback</title>
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+    <script type="text/javascript">
+    </script>
+
+</head>
+
+
+<body onload="hideAllErrorMessage()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">e-Grow</h1>
+            <ul class="tabs">
+                <li class="tab "><a href="/login">LOGIN </a></li>
+                <li class="tab "><a href="/register">SIGN UP </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="container">
+        <div class="heading">
+            <p>It is simpler saving paper than planting trees. <i class='bx bxs-tree'></i></p>
+            <br>
+            <hr>
+        </div>
+        <div class="myBigCard">
+            <h3></h3>
+            <h1>
+                I <i class='bx bxs-heart'></i> feedback
+            </h1>
+            <div class="form-signin">
+                <p>
+                    <input type="text" class="myInputFields" name="name" id="nameId" placeholder="Name" required autofocus="" /><span class="text-danger" id="nameSpanId">This field is required</span>
+                </p>
+                <p>
+                    <input type="text" class="myInputFields" name="email" id="emailId" maxlength="30" placeholder="Email" required /><span class="text-danger" id="emailSpanId">This field is required</span>
+                </p>
+                <p>
+                    <input type="text" class="myInputFields" name="subject" id="subjectId" placeholder="Subject" required /><span class="text-danger" id="subjectSpanId">This field is required</span>
+                </p>
+                <p>
+                    <textarea class="myInputFields" id="feedbackId" name="feedback" placeholder="Write something.." maxlength="150" style="height: 80px;" required></textarea><span class="text-danger" id="feedbackSpanId">This field is required</span>
+                </p>
+                <a class="mySubmitButton" onclick="saveFeedbackInformation()">SEND</a>
+            </div>
+        </div>
+        <div class="footer">
+            <br>
+            <h1>
+                <a class="footerIcon" href="https://twitter.com/rohit821128"><i class='bx bxl-twitter'></i></a>
+                <a class="footerIcon" href="mailto: onenow.inc@gmail.com"><i class='bx bxl-gmail'></i></a>
+                <a class="footerIcon" href="https://github.com/hellFlames"><i class='bx bxl-github'></i></a>
+                <a class="footerIcon" href="https://t.me/onenowproject"><i class='bx bxl-telegram'></i></a>
+                <a class="footerIcon" href="https://www.linkedin.com/in/rohit-dangi-8b0a43219/"><i class='bx bxl-linkedin'></i></a>
+            </h1>
+            <br>
+            <p><span>© Copyright 2022. All Rights Reserved.</span></p>
+            <br>
+            <p>Tip : This is the page where you can ask any question, books, notes, assignments etc. If you are feeling good by visiting this website, then give me appreciation in your responce. Also if you find any glitch, please give a feedback to me.
+                Thanks...
+            </p>
+            <br>
+            <br>
+        </div>
+    </div>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="themeFunction()"><i class='bx bx-moon'></i></a>
+    </div>
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+        /*__________________________________________________theme changer__________________________________________*/
+        var theme = document.getElementById("stylesheet");
+        var isChanged = false;
+
+        function themeFunction() {
+            if (isChanged) {
+                theme.href = "css/brightTheme.css";
+                isChanged = false;
+            } else {
+                theme.href = "css/darkTheme.css";
+                isChanged = true;
+            }
+        }
+    </script>
+
+    <script>
+        function validateFeedbackInformation() {
+            var isValidated = true;
+            if ($("#nameId").val() == '') {
+                $("#nameSpanId").show();
+                isValidated = false;
+            } else {
+                $("#nameSpanId").hide();
+                isValidated = true;
+            }
+            if ($("#emailId").val() == '') {
+                $("#emailSpanId").show();
+                isValidated = false;
+            } else {
+                $("#emailSpanId").hide();
+                isValidated = true;
+            }
+            if ($("#subjectId").val() == '') {
+                $("#subjectSpanId").show();
+                isValidated = false;
+            } else {
+                $("#subjectSpanId").hide();
+                isValidated = true;
+            }
+            if ($("#feedbackId").val() == '') {
+                $("#feedbackSpanId").show();
+                isValidated = false;
+            } else {
+                $("#feedbackSpanId").hide();
+                isValidated = true;
+            }
+            return isValidated;
+
+        }
+
+        function saveFeedbackInformation() {
+            if (validateFeedbackInformation()) {
+                var inputPayload = {
+                    "name": $("#nameId").val(),
+                    "email": $("#emailId").val(),
+                    "subject": $("#subjectId").val(),
+                    "feedback": $("#feedbackId").val()
+                }
+                var inputPayloadString = JSON.stringify(inputPayload);
+                jQuery.ajax({
+                    type: 'POST',
+                    cache: true,
+                    async: false,
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    url: location.origin + "/saveFeedback",
+                    data: inputPayloadString,
+                    success: function(data) {
+                        clearAllFormData();
+                        alertify.alert('', 'Uploaded Sucessfully', function() {});
+                    }
+                });
+
+            }
+        }
+
+        function clearAllFormData() {
+            $("#nameId").val("");
+            $("#emailId").val("");
+            $("#subjectId").val("");
+            $("#feedbackId").val("");
+        }
+
+        function hideAllErrorMessage() {
+            $("#nameSpanId").hide();
+            $("#emailSpanId").hide();
+            $("#subjectSpanId").hide();
+            $("#feedbackSpanId").hide();
+        }
+    </script>
+</body>
+
+</html>

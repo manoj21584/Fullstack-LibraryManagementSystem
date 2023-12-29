@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>e-Grow | Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="getUserInfo()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">e-Grow</h1>
+            <div class="userinfo" hidden>
+                <b><span sec:authentication="name" id="userEmailIdSpan"> Name</span></b>&nbsp;
+                <i><span sec:authentication="principal.authorities">role</span></i>
+            </div>
+            <ul class="tabs">
+                <li class="tab"><a href="/dashboard">BACK </a></li>
+                <li class="tab is-active"><a class="logoutButton" href="/logout">LOGOUT </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="heading">
+
+            <div sec:authorize="isAuthenticated()" class="userDetails">
+                <b><span sec:authentication="name"> Name</span></b>&nbsp;<br/>
+                <a class="greenButton" href="#" onclick="editUserInfo()">UPDATE</a>
+                <a class="redButton" href="#" onclick="deleteUserInfo()">DELETE</a>
+            </div>
+        </div>
+        <table class="tg">
+            <tbody>
+                <tr>
+                    <td class="tg-baqh">Name</td>
+                    <td class="tg-4j02"> <span id="nameSpan"></span></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">Contact</td>
+                    <td class="tg-4j02"><span id="contactSpan"></span></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">Email</td>
+                    <td class="tg-4j02"><span id="emailSpan"></span></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">Department</td>
+                    <td class="tg-4j02"><span id="departmentSpan"></span></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">Active</td>
+                    <td class="tg-4j02"><span id="activeSpan"></span></td>
+                </tr>
+                <tr>
+                    <td class="tg-baqh">Role</td>
+                    <td class="tg-4j02"><span id="roleSpan"></span></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="myDeleteModel" id="myDeleteModel">
+            <ul class="modelList">
+                <li class="modelHeader">
+                    <span class="closeD">&times;</span>
+                    <h1>Deleting...</h1>
+                </li>
+                </li>
+                <li class="listItems">
+                    <p>
+                        Do you really want to delete your profile ?
+                    </p>
+                </li>
+                <li class="modelFooter">
+                    <a href="#" class="" onclick="deleteUser()">DELETE</a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="myEditModel" id="myEditModel">
+            <ul class="modelList">
+                <li class="modelHeader">
+                    <span class="closeE">&times;</span>
+                    <h1>Editing...</h1>
+                </li>
+                </li>
+                <li class="listItems">
+                    <input type="text" class="universalInput" id="nameId" placeholder="Name">
+                    <input type="text" class="universalInput" id="contactId" placeholder="Contact">
+                    <select class="universalSelect" id="departmentId" style="margin-top:10px;">
+                        <optgroup label="Technical">
+                            <option value="Computer Science Engineering">Computer Science Engineering</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Aerospace Engineering">Aerospace Engineering</option>
+                        </optgroup>
+                        <optgroup label="Non-Technical">
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Economics">Economics</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Genetics">Genetics</option>
+                            <option value="History">History</option>
+                            <option value="Psychology">Psychology</option>
+                            <option value="Music">Music</option>
+                            <option value="Zoology">Zoology</option>
+                            <option value="Commerce">Commerce</option>
+                            <option value="Others">Others</option>
+                        </optgroup>
+                    </select>
+                </li>
+                <li class="modelFooter">
+                    <a href="#" class="" onclick="updateUser()">UPLOAD</a>
+                </li>
+            </ul>
+        </div>
+
+
+
+    </div>
+    <script>
+        function getUserInfo() {
+            CheckTheTheme();
+            var emailIdFound = document.getElementById("userEmailIdSpan").innerHTML;
+            jQuery.ajax({
+                type: 'GET',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/user/" + emailIdFound,
+                success: function(data) {
+                    document.getElementById("nameSpan").innerHTML = data.name;
+                    document.getElementById("contactSpan").innerHTML = data.contact;
+                    document.getElementById("emailSpan").innerHTML = data.email;
+                    document.getElementById("departmentSpan").innerHTML = data.department;
+                    document.getElementById("activeSpan").innerHTML = data.isActive;
+                    document.getElementById("roleSpan").innerHTML = data.role;
+                }
+            });
+        }
+
+        function editUserInfo() {
+            var modal = document.getElementById("myEditModel");
+            modal.style.display = "block";
+            var emailId = document.getElementById("userEmailIdSpan").innerHTML;
+            jQuery.ajax({
+                type: 'GET',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/user/" + emailId,
+                success: function(data) {
+                    $("#nameId").val(data.name);
+                    $("#contactId").val(data.contact);
+                    $("#departmentId").val(data.department);
+                }
+            });
+        }
+
+        function deleteUserInfo() {
+            var modal = document.getElementById("myDeleteModel");
+            modal.style.display = "block";
+        }
+
+        function deleteUser() {
+            var emailIdFound = document.getElementById("userEmailIdSpan").innerHTML;
+            jQuery.ajax({
+                type: 'DELETE',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'text',
+                url: location.origin + "/user/" + emailIdFound,
+                success: function() {
+                    debugger;
+                    alert("Your profile deleted successfully.");
+                    window.location.assign(location.origin + "/login");
+                },
+                error: function() {
+                    alert("Error while deleting.");
+                    window.location.assign(location.origin + "/login");
+                }
+            });
+        }
+
+        function updateUser() {
+            var emailIdFound = document.getElementById("userEmailIdSpan").innerHTML;
+            var inputPayload = {
+                "name": $("#nameId").val(),
+                "contact": $("#contactId").val(),
+                "department": $("#departmentId").val()
+            }
+            var inputPayloadString = JSON.stringify(inputPayload);
+            jQuery.ajax({
+                type: 'POST',
+                cache: true,
+                async: false,
+                contentType: 'application/json',
+                dataType: 'json',
+                url: location.origin + "/user/" + emailIdFound,
+                data: inputPayloadString,
+                success: function(data) {
+                    alert("Your profile updated successfully.");
+                    window.location.assign(location.origin + "/profile")
+                },
+                error: function(data) {
+                    alert("Error while updating.")
+                    window.location.assign(location.origin + "/profile");
+                }
+            });
+        }
+    </script>
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+    </script>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="changeTheme()"><i class='bx bx-moon'></i></a>
+    </div>
+    <script src="js/themeScript.js"></script>
+    <script src="js/deleteModal.js"></script>
+    <script src="js/editModal.js"></script>
+</body>
+
+</html>

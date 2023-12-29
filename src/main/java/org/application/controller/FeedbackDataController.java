@@ -1,8 +1,8 @@
-package org.application.Controller;
+package org.application.controller;
 
 import java.util.List;
 
-import org.application.Entity.Feedback;
+import org.application.entity.Feedback;
 import org.application.Repository.FeedbackRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

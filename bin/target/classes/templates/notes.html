@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>e-Grow | CS Notes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" id="stylesheet" href="css/brightTheme.css">
+</head>
+
+<body onload="CheckTheTheme()">
+    <header class="myTopbar">
+        <nav>
+            <i class='bx bx-menu' id="btn"></i>
+            <h1 style="color: crimson;">e-Grow</h1>
+            <div class="userinfo" hidden>
+                <b><span sec:authentication="name" id="userEmailIdSpan"> Name</span></b>&nbsp;
+                <i><span sec:authentication="principal.authorities">role</span></i>
+            </div>
+            <ul class="tabs">
+                <li class="tab "><a href="/CSE">BACK </a></li>
+                <li class="tab is-active"><a class="logoutButton" href="/logout">LOGOUT </a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="mySidebar">
+        <ul class="myList">
+            <!-- sec:authorize="hasAnyAuthority('ADMIN','CREATER')"-->
+            <li>
+                <a href="/dashboard"><i class='bx bxs-dashboard'></i><span class="myListItemNames">Dashboard</span>
+                </a></li>
+            <li>
+                <a href="/feedback"> <i class='bx bxs-pencil'></i> <span class="myListItemNames">Feedback</span>
+                </a>
+            </li>
+            <li>
+                <a href="/downloads"> <i class='bx bxs-downvote'></i> <span class="myListItemNames">Downloads</span>
+                </a>
+            </li>
+            <li>
+                <a href="about"><i class='bx bxs-hot'></i><span class="myListItemNames">About</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="container">
+
+        <div class="heading">
+            <p>Additional Books</p>
+            <br>
+            <hr>
+        </div>
+
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i class='bx bxl-c-plus-plus'></i>
+            </div>
+            <div class="contentBox">
+                <h2>C++ Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/10PgHn9jHfL-JPIW97BKxkh1sZhDnFQvY/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=10PgHn9jHfL-JPIW97BKxkh1sZhDnFQvY"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i>C</i>
+            </div>
+            <div class="contentBox">
+                <h2>C Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1grtl2RhlWA7jH0nm-BhTncxHnRch5nXU/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1grtl2RhlWA7jH0nm-BhTncxHnRch5nXU"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i class='bx bxs-file-html'></i>
+            </div>
+            <div class="contentBox">
+                <h2>HTML5 Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1T2qxtVSpfyV_7DnAdTEkmLNOtUwI-ByO/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1T2qxtVSpfyV_7DnAdTEkmLNOtUwI-ByO"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i class='bx bxs-file-css'></i>
+            </div>
+            <div class="contentBox">
+                <h2>CSS Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1SojejVXNV5_aLqSTM89amIPbI6b0uupl/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1SojejVXNV5_aLqSTM89amIPbI6b0uupl"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i class='bx bx-hash'></i>
+            </div>
+            <div class="contentBox">
+                <h2>C Sharp Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1bWEe45UjCydzxQfNu3UxZjwuciqod2e8/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1bWEe45UjCydzxQfNu3UxZjwuciqod2e8"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i class='bx bxl-android'></i>
+            </div>
+            <div class="contentBox">
+                <h2>Android Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1AWI_2h0tA2yl2j8lMotZrK-j02ryVElx/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1AWI_2h0tA2yl2j8lMotZrK-j02ryVElx"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i class='bx bxl-apple'></i>
+            </div>
+            <div class="contentBox">
+                <h2>ios Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1IdotLkN4bQhAT4a8ipyzGDlHmAJcHIBA/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1IdotLkN4bQhAT4a8ipyzGDlHmAJcHIBA"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+        <div class="mySmallCard">
+            <div class="bookIcon">
+                <i class='bx bxl-angular'></i>
+            </div>
+            <div class="contentBox">
+                <h2>Angular JS Notes</h2>
+                <p>OneNow</p>
+                <a href="https://drive.google.com/file/d/1a-c8uPqozdbMgF7IOC-WXp1kFMtiQCt3/view?usp=sharing"><span>READ</span></a><br/>
+                <a href="https://drive.google.com/uc?export=download&id=1a-c8uPqozdbMgF7IOC-WXp1kFMtiQCt3"><span>DOWNLOAD</span></a>
+            </div>
+        </div>
+
+        <div class="heading">
+            <p>More content soon</p>
+            <br>
+            <hr>
+        </div>
+
+    </div>
+
+    <script>
+        let mySidebar = document.querySelector(".mySidebar");
+        let closeBtn = document.querySelector("#btn");
+        closeBtn.addEventListener("click", () => {
+            mySidebar.classList.toggle("open");
+            menuBtnChange(); //calling the function(optional)
+        });
+        // following are the code to change mySidebar button(optional)
+        function menuBtnChange() {
+            if (mySidebar.classList.contains("open")) {
+                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right"); //replacing the iocns class
+            } else {
+                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu"); //replacing the iocns class
+            }
+        }
+    </script>
+    <div class="themeChanger">
+        <a href="#" class="float" onclick="changeTheme()"><i class='bx bx-moon'></i></a>
+    </div>
+    <script src="js/themeScript.js"></script>
+</body>
+
+</html>

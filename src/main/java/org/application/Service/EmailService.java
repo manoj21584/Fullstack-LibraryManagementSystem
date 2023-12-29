@@ -2,7 +2,7 @@ package org.application.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.application.Entity.Users;
+import org.application.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 	
 	@Autowired
-	private JavaMailSender javaMailSenderObj;
+	public JavaMailSender javaMailSenderObj;
 
 	public void sendMail(Users emp,HttpServletRequest request) {
 

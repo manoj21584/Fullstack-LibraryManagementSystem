@@ -2,7 +2,7 @@ package org.application.Repository;
 
 import java.util.Optional;
 
-import org.application.Entity.Users;
+import org.application.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

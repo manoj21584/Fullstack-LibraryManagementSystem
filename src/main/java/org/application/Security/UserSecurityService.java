@@ -1,6 +1,6 @@
 package org.application.Security;
 
-import org.application.Entity.Users;
+import org.application.entity.Users;
 import org.application.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
